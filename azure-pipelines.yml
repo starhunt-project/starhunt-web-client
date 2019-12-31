@@ -1,0 +1,22 @@
+# Azure Pipelines: build the Webclient
+
+jobs:
+- job: wwt-web-client
+  pool:
+    vmImage: vs2015-win2012r2
+
+  steps:
+
+  - task: MSBuild@1
+    displayName: Build WebGL Engine with ScriptSharp
+    inputs:
+      solution: 'WWTWebClient.sln'
+      msbuildVersion: '14.0'
+      msbuildArchitecture: 'x64'
+      clean: true
+
+  - task: NodeTool@0
+    displayName: Set up node.js
+
+  - script: npm install
+    displayName: Install NPM dependencies
