@@ -1,7 +1,7 @@
 # Azure Pipelines: build the Webclient
 
 jobs:
-- job: wwt-web-client
+- job: starhunt_web_client
   pool:
     vmImage: vs2015-win2012r2
 
