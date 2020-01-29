@@ -298,9 +298,9 @@
                             <span class="small">({{lookAt}})</span><i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu" >
-                            <li ng-repeat="type in lookTypes" ng-click="hideMenu()">
-                                <a href="javascript:void(0)" ng-click="lookAtDropdownChanged(type);">
-                                    {{type}}
+                            <li ng-click="hideMenu()">
+                                <a href="javascript:void(0)" ng-click="lookAtDropdownChanged('Sky');">
+                                    Sky
                                 </a>
                             </li>
                         </ul>
