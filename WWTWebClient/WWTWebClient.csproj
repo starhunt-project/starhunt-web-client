@@ -140,7 +140,6 @@
     <Content Include="ESO.wtml" />
     <Content Include="ext\angular-intro.js" />
     <Content Include="ext\intro.js" />
-    <Content Include="ext\intro.min.js" />
     <Content Include="ext\introjs-rtl.css" />
     <Content Include="ext\introjs.css" />
     <Content Include="factories\AppState.js" />
