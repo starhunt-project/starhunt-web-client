@@ -1,14 +1,14 @@
 /// <binding ProjectOpened='watch' />
 /**!
- Gruntfile to perform wwt webclient less compilation,
- script concatenation/minification, and component updates
- (using grunt bower:install)
+   Gruntfile to perform wwt webclient less compilation,
+   script concatenation/minification, and component updates
+   (using grunt bower:install)
 
- Once you have run npm install and npm update
- and bower is installed (npm install -g bower)
- run grunt watch
+   Once you have run npm install and npm update
+   and bower is installed (npm install -g bower)
+   run grunt watch
 
- **/
+**/
 
 module.exports = function (grunt) {
   'use strict';
@@ -25,10 +25,10 @@ module.exports = function (grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
     banner: '/**\n' +
-    '* WorldWide Telescope Web Client\n' +
-    '* Copyright 2014-2015 WorldWide Telescope\n' +
-    '* Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
-    '**/\n',
+      '* WorldWide Telescope Web Client\n' +
+      '* Copyright 2014-2015 WorldWide Telescope\n' +
+      '* Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+      '**/\n',
 
     // Task configuration.
 
