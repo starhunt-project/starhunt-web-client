@@ -137,7 +137,6 @@
             background: url(Images/finder-scope.png?v=<%= ResourcesVersion %>) no-repeat;
       }
     </style>
-    <script src="//js.live.net/v5.0/wl.js"></script>
     <script src="//cdn.worldwidetelescope.org/webclient/sdk/wwtsdk.js"></script>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap<%=DotMin %>"></script>
