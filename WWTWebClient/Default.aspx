@@ -132,14 +132,6 @@
     <%=css%>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.23/style/jquery.jscrollpane.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-  <!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107473046-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments) };
-    gtag('js', new Date());
-    gtag('config', 'UA-107473046-1');
-</script>
     <style>
       body .finder-scope {
             background: url(Images/finder-scope.png?v=<%= ResourcesVersion %>) no-repeat;
