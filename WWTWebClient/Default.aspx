@@ -696,34 +696,6 @@
             </a>
         </div>
 
-        <div
-            ng-show="!loadingUrlPlace"
-            ng-switch-when="Communities"
-            id="communityPanel"
-            class="{{expanded ? 'explore-panel rel expanded' : 'explore-panel rel'}}"
-            ng-controller="CommunityController"
-            >
-            <span ng-repeat="bc in breadCrumb" class="bc"><a href="javascript:void(0)" ng-click="breadCrumbClick($index)">{{bc}}</a>&nbsp;>&nbsp;</span><br />
-            <div class="explore-thumbs">
-                <div class="ribbon-thumbs" ng-repeat="item in collectionPage">
-                    <ng-include src="'views/thumbnail.html?v=<%=ResourcesVersion%>'"></ng-include>
-                </div>
-
-            </div>
-            <label class="wwt-pager">
-                <a href="javascript:void(0)" data-ng-disabled="currentPage == 0" ng-click="goBack()">
-                    <i class="fa fa-play reverse"></i>
-                </a>
-                {{(currentPage+1)}} <span localize="of"></span> {{pageCount}}
-                <a href="javascript:void(0)" ng-disabled="currentPage == pageCount - 1" ng-click="goFwd()">
-                    <i class="fa fa-play"></i>
-                </a>
-            </label>
-            <a class="{{expanded ? 'expanded btn tn-expander' : 'btn tn-expander'}}" ng-click="expandThumbnails()">
-                <i class="fa fa-caret-down" ng-if="!expanded"></i>
-                <i class="fa fa-caret-up" ng-if="expanded"></i>
-            </a>
-        </div>
         <div ng-switch-when="View" data-ng-controller="ViewController">
             <div class="layer-manager-toggle">
                 <label localize="Use Layer Manager to Control User Settings"></label>
