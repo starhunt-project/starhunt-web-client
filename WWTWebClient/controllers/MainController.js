@@ -33,9 +33,9 @@ wwt.controllers.controller('MainController',
 
       //#region LookAt/Imagery
       var initialPass = true;
-      $scope.lookTypes = ['Earth', 'Planet', 'Sky', 'Panorama', 'SolarSystem'];
+      $scope.lookTypes = ['Sky'];
       $scope.lookAt = 'Sky';
-      $scope.imagery = [[], [], [], [], []];
+      $scope.imagery = [[]];
 
 
       $scope.lookAtDropdownChanged = function (lookAtType) {
