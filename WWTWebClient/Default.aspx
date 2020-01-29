@@ -549,22 +549,6 @@
 
 
     <div id="ribbon">
-        <span class="pull-right" ng-controller="LoginController">
-        <a class="btn pull-right" ng-click="login()" ng-show="liveAppId && liveAppId.length && !loggedIn">
-            <span localize="Sign In"></span>
-        </a>
-        <a class="btn pull-right" ng-click="logout()" ng-show="liveAppId && liveAppId.length && loggedIn">
-            <span localize="Sign Out"></span>
-        </a>
-
-        </span>
-        <a class="btn pull-right" href="/Download/" target="wwt">
-            <i class="fa fa-download"></i>
-            <span localize="Install Windows Client"></span>
-        </a>
-        <a class="home-icon" href="/home">
-            <i class="fa fa-home"></i>
-        </a>
         <ul class="wwt-tabs">
 
             <li data-ng-repeat="tab in ribbon.tabs" data-ng-class="activePanel == tab.label ? 'active' : ''">
