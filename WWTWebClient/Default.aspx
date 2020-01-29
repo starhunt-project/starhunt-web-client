@@ -119,15 +119,9 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title>WorldWide Telescope Web Client</title>
+    <title>StarHunt!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="Worldwide Telescope enables your computer to function as a virtual telescope, bringing together imagery from the best telescopes in the world." />
-    <meta name="ROBOTS" content="INDEX, FOLLOW">
-    <meta property="og:url" content="//worldwidetelescope.org/webclient" />
-    <meta property="og:title" content="WorldWide Telescope Web Client" />
-    <meta property="og:description" content="Worldwide Telescope enables your computer to function as a virtual telescope, bringing together imagery from the best earth and space-based telescopes." />
-    <meta property="og:image" content="https://wwtweb.blob.core.windows.net/webclient/wwtlogo.png" />
     <link rel="icon" href="favicon.ico"/>
     <% if (Client == Clients.Html5 || Client == Clients.Mobile)
        {
