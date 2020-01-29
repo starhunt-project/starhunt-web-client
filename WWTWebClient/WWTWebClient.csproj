@@ -74,7 +74,6 @@
     <Content Include="controllers\ContextPanelController.js" />
     <Content Include="controllers\IntroController.js" />
     <Content Include="controllers\LayerManagerController.js" />
-    <Content Include="controllers\LoginController.js" />
     <Content Include="controllers\MainController.js" />
     <Content Include="controllers\MobileNavController.js" />
     <Content Include="controllers\modals\colorpickerController.js" />
@@ -220,11 +219,6 @@
     <Content Include="Images\uranus.jpg" />
     <Content Include="Images\venus.jpg" />
     <Content Include="Images\wwtlogo.png" />
-    <Content Include="login.aspx" />
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Content Include="package.json" />
     <Content Include="packages.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
