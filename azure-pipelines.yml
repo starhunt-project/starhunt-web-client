@@ -1,22 +1,53 @@
 # Azure Pipelines: build the Webclient
 
-jobs:
-- job: starhunt_web_client
-  pool:
-    vmImage: vs2015-win2012r2
+trigger:
+- master
 
-  steps:
+pool:
+  vmImage: 'windows-latest'
 
-  - task: MSBuild@1
-    displayName: Build WebGL Engine with ScriptSharp
-    inputs:
-      solution: 'WWTWebClient.sln'
-      msbuildVersion: '14.0'
-      msbuildArchitecture: 'x64'
-      clean: true
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 
-  - task: NodeTool@0
-    displayName: Set up node.js
+steps:
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'WWTWebClient'
+  displayName: NPM install
 
-  - script: npm install
-    displayName: Install NPM dependencies
+- task: Grunt@0
+  inputs:
+    gruntFile: 'WWTWebClient\Gruntfile.js'
+    targets: 'dist-js dist-css'
+    gruntCli: 'node_modules/grunt-cli/bin/grunt'
+  displayName: Compile Less to CSS with Grunt
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(build.artifactStagingDirectory)'
+    publishLocation: 'pipeline'
+    artifactName: wwt-webclient-deployment
+  displayName: Publish web deployment artifacts
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'azure-subscription'
+    appType: 'webApp'
+    WebAppName: 'chalmers-starhunt'
+    packageForLinux: '$(build.artifactStagingDirectory)\WWTWebClient.zip'
