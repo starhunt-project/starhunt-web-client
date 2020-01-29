@@ -301,7 +301,6 @@
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="sunCorona.png" />
-    <Content Include="poly.html" />
     <Content Include="views\copy-to-clipboard.html" />
     <Content Include="views\modals\centered-modal-template.html" />
     <Content Include="views\modals\colorpicker.html" />
