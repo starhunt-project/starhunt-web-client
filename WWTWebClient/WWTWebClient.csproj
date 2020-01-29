@@ -90,7 +90,6 @@
     <Content Include="factories\mediafile.js" />
     <Content Include="Gruntfile.js" />
     <Content Include=".editorconfig" />
-    <Content Include="clientbin\WWTSL.xap" />
     <Content Include="controllers\IntroController.js" />
     <Content Include="controllers\LayerManagerController.js" />
     <Content Include="controllers\MainController.js" />
@@ -121,9 +120,7 @@
     <Content Include="ext\intro.js" />
     <Content Include="ext\intro.min.js" />
     <Content Include="ext\introjs-rtl.css" />
-    <Content Include="ext\introjs-rtl.min.css" />
     <Content Include="ext\introjs.css" />
-    <Content Include="ext\introjs.min.css" />
     <Content Include="factories\AppState.js" />
     <Content Include="factories\FinderScope.js" />
     <Content Include="factories\HashManager.js" />
@@ -303,17 +300,6 @@
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
-    <Content Include="sdk\mscorlib.xml" />
-    <Content Include="sdk\old\wwtsdk_old.debug.js" />
-    <Content Include="sdk\Script.Web.xml" />
-    <Content Include="sdk\ss.js" />
-    <Content Include="sdk\ss.min.js" />
-    <Content Include="sdk\wwtsdk.aspx" />
-    <Content Include="sdk\wwtlib.xml" />
-    <Content Include="sdk\wwtsdk.js" />
-    <Content Include="sdk\wwtsdk.min.js" />
-    <Content Include="searchdata.min.js" />
-    <Content Include="searchdataraw.js" />
     <Content Include="sunCorona.png" />
     <Content Include="poly.html" />
     <Content Include="views\copy-to-clipboard.html" />
@@ -350,7 +336,6 @@
     <Content Include="css\variables.less" />
     <Content Include="css\webclient.css.map" />
     <Content Include="css\webclient.less" />
-    <Content Include="WWTSL.xap" />
     <Content Include="wwtwebclient.js" />
     <Content Include="ensurenpm.cmd" />
     <Content Include="adsass.wtml">
@@ -365,14 +350,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="README.md" />
-    <Content Include="sdk\wwtlib.scripts" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
-    <Content Include="webclient.sln.DotSettings" />
     <Content Include="Wise.wtml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="sdk\wwtsdk.min.js.map" />
     <Content Include="Spitzer.wtml" />
   </ItemGroup>
   <ItemGroup>
