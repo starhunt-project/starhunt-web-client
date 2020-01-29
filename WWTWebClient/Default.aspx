@@ -436,6 +436,8 @@
 
 
     <div id="ribbon">
+      <p class="starhunt-demobanner">Welcome to StarHunt!</p>
+
         <ul class="wwt-tabs">
 
             <li data-ng-repeat="tab in ribbon.tabs" data-ng-class="activePanel == tab.label ? 'active' : ''">
