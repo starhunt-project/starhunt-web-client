@@ -123,13 +123,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" href="favicon.ico"/>
-    <% if (Client == Clients.Html5 || Client == Clients.Mobile)
-       {
-        string css = "<link href=\"css/webclient.min.css?v="+ResourcesVersion+"\" rel=\"stylesheet\" />";
-        css+="<link href=\"css/angular-motion.css?v="+ResourcesVersion+"\" rel=\"stylesheet\" />";
-        css+="<link href=\"ext/introjs.css?v="+ResourcesVersion+"\" rel=\"stylesheet\" />";
-        %>
-    <%=css%>
+    <link href="css/webclient.min.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
+    <link href="css/angular-motion.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
+    <link href="css/introjs.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.23/style/jquery.jscrollpane.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <style>
