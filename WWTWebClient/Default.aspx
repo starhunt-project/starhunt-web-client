@@ -139,7 +139,7 @@
     </style>
     <script src="//cdn.worldwidetelescope.org/webclient/sdk/wwtsdk.js"></script>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap<%=DotMin %>"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap<%=DotMin %>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular<%=DotMin %>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-touch<%=DotMin %>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route<%=DotMin %>"></script>
