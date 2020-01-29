@@ -1,1 +1,10 @@
 /.vs/
+/packages/
+/WWTWebClient/bin/
+/WWTWebClient/css/webclient.css
+/WWTWebClient/css/webclient.css.map
+/WWTWebClient/css/webclient.min.css
+/WWTWebClient/obj/
+/WWTWebClient/package-lock.json
+/WWTWebClient/wwtwebclient.js
+/WWTWebClient/wwtwebclient.min.js
