@@ -1,26 +1,22 @@
 {
-    "name": "webclient",
-    "description": "WorldWide Telescope Web Client.",
-    "version": "5.2.4",
+    "name": "starhunt-webclient",
+    "description": "StarHunt web client",
+    "version": "0.1.0",
     "keywords": [
-        "WorldWide Telescope",
-        "WWT",
-        "client",
-        "web",
-        "HTML5 SDK"
+        "AAS WorldWide Telescope",
     ],
-    "homepage": "//WorldWideTelescope.org",
-    "author": "Jonathan Fay (jfay@microsoft.com) and Ron Gilchrist (kid@thewebkid.com)",
+    "homepage": "http://chalmers-starhunt.azurewebsites.net/",
+    "author": "Peter Williams",
     "repository": {
         "type": "git",
-        "url": "https://github.com/WorldWideTelescope/wwt-web-client.git"
+        "url": "https://github.com/starhunt-project/starhunt-web-client.git"
     },
     "bugs": {
-        "url": "https://github.com/WorldWideTelescope/wwt-web-client/Issues"
+        "url": "https://github.com/starhunt-project/starhunt-web-client/issues"
     },
     "license": {
         "type": "MIT",
-        "url": "https://github.com/WorldWideTelescope/wwt-web-client/blob/master/LICENSE.md"
+        "url": "https://github.com/starhunt-project/starhunt-web-client/blob/master/LICENSE"
     },
     "devDependencies": {
         "grunt": "^1.0",
