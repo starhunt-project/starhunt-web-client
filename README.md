@@ -1,5 +1,7 @@
 # The StarHunt web client
 
+[![Build Status](https://dev.azure.com/starhunt-project/starhunt-infra/_apis/build/status/starhunt-project.starhunt-web-client?branchName=master)](https://dev.azure.com/starhunt-project/starhunt-infra/_build/latest?definitionId=1&branchName=master)
+
 This repository contains a customized version of the
 [AAS WorldWide Telescope] (WWT) [web client] intended for use in the StarHunt project
 spearheaded by [Jonathan Tan] at [Chalmers University]. See
@@ -10,6 +12,10 @@ spearheaded by [Jonathan Tan] at [Chalmers University]. See
 [Jonathan Tan]: https://www.chalmers.se/en/staff/Pages/jonathan-tan.aspx
 [Chalmers University]: https://www.chalmers.se/en/departments/see/research/Astronomy-and-Plasma-Physics/Pages/default.aspx
 [worldwidetelescope/wwt-web-client]: https://github.com/worldwidetelescope/wwt-web-client/
+
+The StarHunt web client currently runs at:
+
+### http://chalmers-starhunt.azurewebsites.net/
 
 ## Legalities
 
