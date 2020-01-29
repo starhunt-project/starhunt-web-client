@@ -313,26 +313,14 @@ wwt.controllers.controller('MainController',
                 },
                 sep1: null,
                 'Tour WWT Features': [$scope.tourFeatures],
-                'Show Welcome Tips': [showTips],
                 'Show Finder (right click)': [$scope.showFinderScope],
-                'WorldWide Telescope Home': [util.nav, '/home'],
-                'Getting Started (Help)': [util.nav, '/Learn/'],
-                'WorldWide Telescope Terms of Use': [util.nav, '/Terms'],
-                'About WorldWide Telescope': [util.nav, '/About']/*,
-          sep2: null,
-          'Exit': [util.nav, 'Exit'],*/
+                'AAS WorldWide Telescope Home': [util.nav, 'http://worldwidetelescope.org/home']
               }
             }, {
               label: 'Guided Tours',
               button: 'rbnTours',
               menu: {
-
-                'Tour Home Page': [util.nav, '/Learn/Exploring#guidedtours'],
-                'Music and other Tour Resources': [util.nav, '/Download/TourAssets'],
-                sep2: null,
-
                 'Create a New Tour...': [$scope.createNewTour],
-
               }
             }, {
               label: 'Search',
@@ -859,9 +847,6 @@ wwt.controllers.controller('MainController',
       $scope.restoreDefaultSettings = function () {
         $rootScope.$broadcast('restoreDefaults');
       };
-      var showTips = function () {
-        $('#introModal').modal('show');
-      };
       //#endregion
 
       //#region localization
@@ -932,17 +917,6 @@ wwt.controllers.controller('MainController',
       $rootScope.languagePromise.then(function (result) {
         $rootScope.na = loc.getFromEn('n/a');
         $rootScope.neverRises = loc.getFromEn('Never Rises');
-        $scope.hideIntroModal = appState.get('hideIntroModalv2');
-        if (!$scope.hideIntroModal && !$scope.loadingUrlPlace) {
-          if (localStorage.getItem('login')) {
-            var now = new Date().valueOf();
-            var loginTime = parseInt(localStorage.getItem('login'));
-            if (now - loginTime < 33333) {
-              return;//no autoshow popup when logged in within last 30sec
-            }
-          }
-          setTimeout(showTips, 1200);
-        }
       });
       //#endregion
 
@@ -980,9 +954,6 @@ wwt.controllers.controller('MainController',
         return show;
       };
 
-      $scope.hideIntroModalChange = function (hideIntroModal) {
-        appState.set('hideIntroModalv2', hideIntroModal);
-      };
       $scope.iswebclientHome = $cookies.get('homepage') !== 'home';
       $scope.homePrefChange = function (isWebclient) {
         $cookies.remove('homepage');

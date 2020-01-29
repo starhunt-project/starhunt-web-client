@@ -252,7 +252,6 @@
     <Content Include="views\modals\finder-scope.html" />
     <Content Include="views\modals\loading-content.html" />
     <Content Include="views\modals\login-before-edit.html" />
-    <Content Include="views\modals\intro.html" />
     <Content Include="views\modals\set-next-slide.html" />
     <Content Include="views\modals\loading.html" />
     <Content Include="views\modals\mobile-explore.html" />
