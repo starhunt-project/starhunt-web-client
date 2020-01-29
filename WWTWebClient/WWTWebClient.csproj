@@ -152,7 +152,6 @@
     <Content Include="factories\Util.js" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
-    <Content Include="gettours_webclient.xml" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
     <Content Include="Images\bing-search-button.png" />

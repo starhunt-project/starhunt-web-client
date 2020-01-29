@@ -84,7 +84,7 @@
         var deferred = $q.defer();
 
         root = wwt.wc.createFolder();
-        var toursUrl = 'gettours_webclient.xml';
+        var toursUrl = '//worldwidetelescope.org/webclient/gettours_webclient.xml';
         root.loadFromUrl(toursUrl, function () {
             //root.refresh();
             deferred.resolve(root.get_children());
