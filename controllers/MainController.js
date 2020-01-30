@@ -402,7 +402,7 @@ wwt.controllers.controller(
           });
         }
 
-        $scope.activePanel = util.getQSParam('ads') ? 'ADS' : 'Explore';
+        $scope.activePanel = util.getQSParam('ads') ? 'ADS' : 'StarHunt Targets';
         $scope.UITools = wwtlib.UiTools;
         $scope.Planets = wwtlib.Planets;
         $rootScope.$on('viewportchange', viewportChange);
