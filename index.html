@@ -702,7 +702,9 @@
         <!-- StarHunt custom UI -- panes for layer manager / lefthand panel -->
         <div ng-switch="starhuntActiveLeftPanel">
           <div ng-switch-when="starhunt-ui">
-            <h5 localize="STARHUNT UI"></h5>
+            <!-- Opacity control -->
+            <label id="starhunt-opacity-label" for="starhunt-opacity" localize="Opacity"></label>
+            <input id="starhunt-opacity" class="starhunt-slider" type="range" min="0" max="100" step="1" value="100" />
           </div> <!-- when starhunt-ui -->
 
           <div ng-switch-when="layer-manager">
