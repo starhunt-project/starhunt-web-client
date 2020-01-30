@@ -12,7 +12,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <style>
       body .finder-scope {
-        background: url(Images/finder-scope.png?v=<%= ResourcesVersion %>) no-repeat;
+        background: url(Images/finder-scope.png?v=QQRV) no-repeat;
       }
     </style>
     <script src="//cdn.worldwidetelescope.org/webclient/sdk/wwtsdk.js"></script>
@@ -134,7 +134,7 @@
       <a  data-bs-popover="popover" tabindex="0"
           localize="Share this place"
           localize-only="title"
-          data-content-template="views/popovers/shareplace.html?v=<%=ResourcesVersion%>"
+          data-content-template="views/popovers/shareplace.html?v=QQRV"
           data-ng-class="searchModal ? 'hide':'btn share-button'"
           data-placement="bottom-left"
           data-ng-if="!tourPlaying"
@@ -150,7 +150,7 @@
         <a class="btn" data-bs-popover="popover" tabindex="0"
            localize="Share this place"
            localize-only="title"
-           data-content-template="views/popovers/shareplace.html?v=<%=ResourcesVersion%>"
+           data-content-template="views/popovers/shareplace.html?v=QQRV"
            data-container="body"
            data-placement="bottom-left"
            >
@@ -158,7 +158,7 @@
           <span localize="Share"></span>
         </a>
       </div>
-      <ng-include src="'views/modals/mobile-explore.html?v=<%=ResourcesVersion%>'"></ng-include>
+      <ng-include src="'views/modals/mobile-explore.html?v=QQRV'"></ng-include>
 
       <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="MobileNavController"  ng-show="!tourPlaying">
         <div class="container">
@@ -275,7 +275,7 @@
           </label>
         </div>
       </div>
-      <ng-include src="'views/modals/mobile-nearby-objects.html?v=<%=ResourcesVersion%>'"></ng-include>
+      <ng-include src="'views/modals/mobile-nearby-objects.html?v=QQRV'"></ng-include>
       <div class="context-panel">
         <div class="nearby-objects" ng-if="nbo.length && (lookAt == 'Sky' || lookAt=='SolarSystem')" ng-show="!tourPlaying">
           <a ng-click="showNbo()" title="{{nbo[0].get_name()}}" class="thumbnail">
@@ -308,8 +308,8 @@
       <% } %>
       <%if (Client == Clients.Html5)
            { %>
-      <ng-include src="'views/research-menu.html?v=<%=ResourcesVersion%>'"></ng-include>
-      <ng-include src="'views/modals/finder-scope.html?v=<%=ResourcesVersion%>'" onload="initFinder()"></ng-include>
+      <ng-include src="'views/research-menu.html?v=QQRV'"></ng-include>
+      <ng-include src="'views/modals/finder-scope.html?v=QQRV'" onload="initFinder()"></ng-include>
 
 
       <div data-ng-controller="ViewController"></div>
@@ -355,7 +355,7 @@
           <span ng-repeat="bc in breadCrumb" class="bc"><a href="javascript:void(0)" ng-click="breadCrumbClick($index)">{{bc}}</a>&nbsp;>&nbsp;</span><br />
           <div class="explore-thumbs">
             <div class="ribbon-thumbs" ng-repeat="item in collectionPage">
-              <ng-include src="'views/thumbnail.html?v=<%=ResourcesVersion%>'"></ng-include>
+              <ng-include src="'views/thumbnail.html?v=QQRV'"></ng-include>
             </div>
 
           </div>
@@ -433,7 +433,7 @@
             </div>
             <div class="search-results">
                 <div class="ribbon-thumbs" ng-repeat="item in collectionPage">
-                    <ng-include src="'views/thumbnail.html?v=<%=ResourcesVersion%>'"></ng-include>
+                    <ng-include src="'views/thumbnail.html?v=QQRV'"></ng-include>
                 </div>
             </div>
             <label class="wwt-pager" ng-show="collection.length > 0">
@@ -493,7 +493,7 @@
                 <a class="btn" bs-popover
                    localize="Observing Time"
                    localize-only="title"
-                   data-content-template="views/popovers/observing-time.html?v=<%=ResourcesVersion%>"
+                   data-content-template="views/popovers/observing-time.html?v=QQRV"
                    ng-controller="ObservingTimeController"
                    data-animation="am-flip-x"
                    data-placement="bottom-right">
@@ -739,12 +739,12 @@
                             <div class="stops-container">
                                 <a class="btn" bs-popover
                                     style="position:absolute;top:110px;left:190px;visibility:hidden"
-                                    template-url="views/popovers/tour-properties.html?v=<%=ResourcesVersion%>"
+                                    template-url="views/popovers/tour-properties.html?v=QQRV"
                                     trigger="click" placement="bottom-left" data-content="{tour}"
                                     data-container="body" id="newTourProps"></a>
                                 <div class="stop-arrow" ng-repeat="stop in tourStops">
                                     <div class="transition-choice {{stop.transHover ? 'active' : ''}}"
-                                        bs-popover template-url="views/popovers/transition-type.html?v=<%=ResourcesVersion%>"
+                                        bs-popover template-url="views/popovers/transition-type.html?v=QQRV"
                                         trigger="click" placement="bottom-left" data-content="{1}"
                                         title="Transition" data-container="body" data-auto-close="true"
                                         data-on-show="testfn()" data-on-hide="testfn()">
@@ -819,13 +819,13 @@
                             <div class="left">
                                 <a class="btn" bs-popover
                                     localize="Tour Properties" style="width:98px;"
-                                    template-url="views/popovers/tour-properties.html?v=<%=ResourcesVersion%>"
+                                    template-url="views/popovers/tour-properties.html?v=QQRV"
                                     trigger="click" placement="bottom-left" data-content="{tour}"
                                     title="Tour Properties" data-container="body"></a>
                                 <a class="btn" localize="Save" style="width:48px;" ng-click="saveTour()"></a>
 
                                 <div>
-                                    <a class="btn menu-button text" bs-modal template-url="views/popovers/tour-text.html?v=<%=ResourcesVersion%>"
+                                    <a class="btn menu-button text" bs-modal template-url="views/popovers/tour-text.html?v=QQRV"
                                     trigger="click" data-content="{tour}" id="editTourText" placement="center"
                                     title="Enter Text" data-container="body">
                                         <div class="icon">
@@ -901,7 +901,7 @@
                 </tr>
             </table>
 
-            <ng-include src="'views/popovers/slide-overlays.html?v=<%=ResourcesVersion%>'"></ng-include>
+            <ng-include src="'views/popovers/slide-overlays.html?v=QQRV'"></ng-include>
 
         </div>
     </div>
@@ -996,7 +996,7 @@
                 style="position:absolute; top:6px;left:-33px;z-index:3"
                 localize="Share this view"
                 localize-only="title"
-                data-content-template="views/popovers/shareplace.html?v=<%=ResourcesVersion%>"
+                data-content-template="views/popovers/shareplace.html?v=QQRV"
                 data-container="body"
                 data-placement="top-right"
                 >
@@ -1080,7 +1080,7 @@
         </div>
         <div class="thumbnails nearby-objects rel" ng-if="!compressed" data-ng-controller="ContextPanelController" ng-style="{width: bottomControlsWidth()}">
             <div class="rel" style="display: inline-block;vertical-align:top;" ng-repeat="item in collectionPage" ng-if="lookAt != 'Planet' && lookAt != 'Panorama'">
-                <ng-include src="'views/thumbnail.html?v=<%=ResourcesVersion%>'"></ng-include>
+                <ng-include src="'views/thumbnail.html?v=QQRV'"></ng-include>
             </div>
             <label class="wwt-pager">
                 <a class="btn"
@@ -1089,7 +1089,7 @@
                     style="position:absolute; top:0;right:-204px"
                     localize="Share this view"
                     localize-only="title"
-                    data-content-template="views/popovers/shareplace.html?v=<%=ResourcesVersion%>"
+                    data-content-template="views/popovers/shareplace.html?v=QQRV"
                     data-container="body"
                     data-placement="top-right"
                     >
@@ -1102,7 +1102,7 @@
                         style="position:absolute; top:0;left:-40px"
                         localize="Share this place"
                         localize-only="title"
-                        data-content-template="views/popovers/shareplace.html?v=<%=ResourcesVersion%>"
+                        data-content-template="views/popovers/shareplace.html?v=QQRV"
                         data-container="body"
                         data-placement="top-right"
                         >
@@ -1162,7 +1162,7 @@
 </div>
 
 <a href="javascript:void(0)" data-toggle="modal" data-target="#loadingModal" id="loadingModalLink">&nbsp;</a>
-    <ng-include src="'views/modals/open-item.html?v=<%=ResourcesVersion%>'"></ng-include>
+    <ng-include src="'views/modals/open-item.html?v=QQRV'"></ng-include>
     <div ng-intro-autostart="false"
         ng-intro-onbeforechange="beforeChange"
         ng-intro-onafterchange="afterChange"
