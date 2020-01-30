@@ -92,10 +92,6 @@ module.exports = function (grunt) {
         src: '<%= concat.webclient.dest %>',
         dest: 'wwtwebclient.min.js'
       },
-      searchData: {
-        src: 'searchdataraw.js',
-        dest: 'searchdata.min.js'
-      },
     },
 
     less: {
@@ -149,6 +145,5 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
   grunt.registerTask('dist-js', ['concat:webclient', 'uglify:webclient']);
-  grunt.registerTask('dist-searchdata', ['uglify:searchData']);
   grunt.registerTask('dist-css', ['less:compileCore', 'autoprefixer:core', 'cssmin:minifyCore']);
 };
