@@ -321,6 +321,10 @@ wwt.controllers.controller(
         $scope.ribbon = {
           tabs: [
             {
+              label: 'StarHunt Targets',
+              button: 'rbnStarHunt',
+              menu: {}
+            }, {
               label: 'Explore',
               button: "rbnExplore",
               mobileLabel: 'Explore Collections',

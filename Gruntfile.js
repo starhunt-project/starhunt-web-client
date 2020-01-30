@@ -60,6 +60,7 @@ module.exports = function (grunt) {
           'controllers/tabs/SearchController.js',
           'controllers/tabs/SettingsController.js',
           'controllers/tabs/ViewController.js',
+          'controllers/tabs/StarHuntController.js',
           'controllers/tabs/ToursController.js',
           'controllers/tabs/CommunityController.js',
           'controllers/tabs/CurrentTourController.js',
