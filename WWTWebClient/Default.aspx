@@ -436,7 +436,15 @@
 
 
     <div id="ribbon">
-      <p class="starhunt-demobanner">Welcome to StarHunt!</p>
+      <div class="starhunt-demobanner">
+        <span>Welcome to StarHunt!</span>
+        <span class="pull-right">Powered by the <a href="https://aas.org">AAS</a>
+            <a href="http://worldwidetelescope.org/home">WorldWide Telescope</a>
+            &nbsp;<a href="https://github.com/starhunt-project/starhunt-web-client/"><img src="Images/logo_github.png" /></a>
+            <a href="http://worldwidetelescope.org/home"><img src="Images/logo_wwt.png" /></a>
+            <a href="https://aas.org"><img src="Images/logo_aas.png" /></a>
+        </span>
+      </div>
 
         <ul class="wwt-tabs">
 
