@@ -198,6 +198,9 @@
     <Content Include="Images\jupiter.jpg" />
     <Content Include="Images\layersButton.png" />
     <Content Include="Images\layersButtonHover.png" />
+    <Content Include="Images\logo_aas.png" />
+    <Content Include="Images\logo_github.png" />
+    <Content Include="Images\logo_wwt.png" />
     <Content Include="Images\mars.jpg" />
     <Content Include="Images\mercury.jpg" />
     <Content Include="Images\moon.jpg" />
