@@ -1157,6 +1157,25 @@ wwt.controllers.controller(
       }
 
       $scope.mobileLink = util.mobileLink();
+
+      // StarHunt customization -- tabs in the layer manager
+
+      $scope.starhuntActiveLeftPanel = 'starhunt-ui';
+
+      $scope.starhuntLeftPanelTabs = [
+        {
+          ident: 'starhunt-ui',
+          label: 'StarHunt'
+        },
+        {
+          ident: 'layer-manager',
+          label: 'Layer Manager'
+        }
+      ];
+
+      $scope.starhuntLeftPanelTabClick = function (tab) {
+        $scope.starhuntActiveLeftPanel = tab.ident;
+      };
     }
   ]
 );

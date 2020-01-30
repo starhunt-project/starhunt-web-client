@@ -659,60 +659,77 @@
                 ng-click="toggleLayerManager()"
                 style="font-weight: 100;font-size: 16px">x</button>
 
-        <h5 localize="Layers"></h5>
+        <ul class="wwt-tabs">
+          <li data-ng-repeat="tab in starhuntLeftPanelTabs" data-ng-class="starhuntActiveLeftPanel == tab.ident ? 'active' : ''">
+            <div class="outer">
+              <a href="javascript:void(0)">
+                <span class="label" data-ng-click="starhuntLeftPanelTabClick(tab)" id="{{tab.ident}}" localize="{{tab.label}}"></span>
+              </a>
+            </div>
+          </li>
+        </ul>
 
-        <div class="tree" ng-style="{ height: layerManagerHeight()-90 }">
-          <div ng-class="sunTree.Sun.collapsed ? 'collapsed' : ''"
-               ng-repeat="(name,node) in sunTree"
-               ng-include="'tree-node'"></div>
+        <!-- StarHunt custom UI -- panes for layer manager / lefthand panel -->
+        <div ng-switch="starhuntActiveLeftPanel">
+          <div ng-switch-when="starhunt-ui">
+            <h5 localize="STARHUNT UI"></h5>
+          </div> <!-- when starhunt-ui -->
 
-          <i class="fa"
-             ng-class="collapsed(tree) ? 'fa-plus-square-o' : 'fa-minus-square-o'"
-             ng-click="collapse(tree)"></i>
+          <div ng-switch-when="layer-manager">
+            <div class="tree" ng-style="{ height: layerManagerHeight() - 126 }">
+              <div ng-class="sunTree.Sun.collapsed ? 'collapsed' : ''"
+                   ng-repeat="(name,node) in sunTree"
+                   ng-include="'tree-node'"></div>
 
-          <div class="checkbox" ng-right-click="showMenu(skyNode,$event)" ng-class="{activelayer:skyNode.active}">
-            <label data-ng-class="{checked:tree.checked}"
-                   ng-click="selectionChanged(tree,$event)"
-                   localize="Sky"
+              <i class="fa"
+                 ng-class="collapsed(tree) ? 'fa-plus-square-o' : 'fa-minus-square-o'"
+                 ng-click="collapse(tree)"></i>
+
+              <div class="checkbox" ng-right-click="showMenu(skyNode,$event)" ng-class="{activelayer:skyNode.active}">
+                <label data-ng-class="{checked:tree.checked}"
+                       ng-click="selectionChanged(tree,$event)"
+                       localize="Sky"
                    localize-only="title">
-              <input type="checkbox" ng-model="tree.checked"/>
-              <span localize="Sky"></span>
-            </label>
-          </div>
+                  <input type="checkbox" ng-model="tree.checked"/>
+                  <span localize="Sky"></span>
+                </label>
+              </div>
 
-          <div class="indent"
-               ng-class="collapsed(tree) ? ' collapsed' : ''"
-               ng-repeat="(name,node) in getChildren(tree)"
-               ng-include="'tree-node'">
-          </div>
-        </div>
-
-        <div class="time-scrubber">
-          <h5 localize="Time Scrubber" id="timeScrubberLabel" ng-if="!scrubber.title"></h5>
-          <h5 ng-if="scrubber.title">{{scrubber.title}}</h5>
-
-          <div class="control">
-            <span class="pull-right" id="scrubberRightLabel">{{scrubber.right}}&nbsp;</span>
-            <span id="scrubberLeftLabel">{{scrubber.left}}&nbsp;</span>
-            <div class="scrubber-slider">
-              <a class="btn"></a>
+              <div class="indent"
+                   ng-class="collapsed(tree) ? ' collapsed' : ''"
+                   ng-repeat="(name,node) in getChildren(tree)"
+                   ng-include="'tree-node'">
+              </div>
             </div>
 
-            <div class="checkbox iblock" ng-if="activeLayer && activeLayer.canUseScrubber" style="margin:15px 65px 0 0;">
-              <label data-ng-class="activeLayer.timeSeries ? 'checked' : ''">
-                <input type="checkbox" ng-model="activeLayer.timeSeriesChecked" ng-change="setTimeSeries(activeLayer, activeLayer.timeSeriesChecked)" />
-                <span localize="Time series"></span>
-              </label>
-            </div>
-            <div class="checkbox iblock" ng-if="activeLayer && activeLayer.canUseScrubber" style="margin-top:15px;">
-              <label data-ng-class="activeLayer.loopChecked ? 'checked' : ''">
+            <div class="time-scrubber">
+              <h5 localize="Time Scrubber" id="timeScrubberLabel" ng-if="!scrubber.title"></h5>
+              <h5 ng-if="scrubber.title">{{scrubber.title}}</h5>
+
+              <div class="control">
+                <span class="pull-right" id="scrubberRightLabel">{{scrubber.right}}&nbsp;</span>
+                <span id="scrubberLeftLabel">{{scrubber.left}}&nbsp;</span>
+                <div class="scrubber-slider">
+                  <a class="btn"></a>
+                </div>
+
+                <div class="checkbox iblock" ng-if="activeLayer && activeLayer.canUseScrubber" style="margin:15px 65px 0 0;">
+                  <label data-ng-class="activeLayer.timeSeries ? 'checked' : ''">
+                    <input type="checkbox" ng-model="activeLayer.timeSeriesChecked" ng-change="setTimeSeries(activeLayer, activeLayer.timeSeriesChecked)" />
+                    <span localize="Time series"></span>
+                  </label>
+                </div>
+                <div class="checkbox iblock" ng-if="activeLayer && activeLayer.canUseScrubber" style="margin-top:15px;">
+                  <label data-ng-class="activeLayer.loopChecked ? 'checked' : ''">
                 <input type="checkbox" ng-model="activeLayer.loopChecked" ng-change="setAutoLoop(activeLayer,activeLayer.loopChecked)" />
                 <span localize="Auto Loop"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
+                  </label>
+                </div>
+              </div>
+            </div> <!-- .time-scrubber -->
+          </div> <!-- when layer-manager -->
+        </div> <!-- switch starhuntActiveLeftPanel -->
+      </div> <!-- .layer-manager -->
 
       <!-- The bottom Context Panel -->
 
