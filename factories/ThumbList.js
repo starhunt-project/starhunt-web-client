@@ -118,6 +118,12 @@ wwt.app.factory(
         scope.activeItem = item.get_thumbnailUrl() + item.get_name();
         scope.setActiveItem(item);
 
+        // StarHunt hack!
+        if (item.custom_click_action !== undefined) {
+          item.custom_click_action();
+          return outParams;
+        }
+
         if (item.get_name() === 'Up Level') {
           $('body').append($('#researchMenu'));
           scope.currentPage = 0;

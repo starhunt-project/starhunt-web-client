@@ -13,9 +13,13 @@
     function ($scope, $rootScope, appState, places, $timeout, util, thumbList, uiLib) {
       // A dumb, fake Place workalike for our custom
 
-      function StarHuntItem(name) {
+      function StarHuntItem(name, fits_url) {
         var item = Object.create(StarHuntItem.prototype);
         item._name = name;
+        item._fits_url = fits_url;
+        item._fits_layer = null;
+
+        // Place stuff
         item.thumb = null;
         item.contextMenuEvent = null;
         item.isFGImage = false;
@@ -33,6 +37,32 @@
 
       StarHuntItem.prototype.get_name = function () {
         return this._name;
+      }
+
+      StarHuntItem.prototype.custom_click_action = function () {
+        if (this._fits_layer == null) {
+          // We need to start loading the FITS layer.
+          this._fits_layer = wwt.wc.loadFitsLayer(
+            this._fits_url,
+            this._name,
+            true, // goto target
+            function(layer) { // called when image is loaded
+              layer.getFitsImage().transparentBlack = false;
+            }
+          );
+        } else {
+          // FITS layer loaded or loading. Steer the UI there.
+          var fits = this._fits_layer.getFitsImage();
+
+          if (fits != null) { // image may not have been loaded yet
+            wwt.wc.gotoRaDecZoom(
+              fits.get_centerX(),
+              fits.get_centerY(),
+              2 * fits.get_scaleY() * fits.get_sizeY(),
+              false
+            );
+          }
+        }
       }
 
       StarHuntItem.prototype.get_isFolder = function () {
@@ -73,7 +103,8 @@
 	$('body').append($('#researchMenu'));
 
 	$scope.collection = [
-          new StarHuntItem("test item")
+          new StarHuntItem("Source A", "/starhunt_data/A_J2000_msd_header_crop.fits"),
+          new StarHuntItem("Source B", "/starhunt_data/B_J2000_msd_header_crop.fits")
         ];
 
 	$scope.breadCrumb = bc = ['Targets'];
