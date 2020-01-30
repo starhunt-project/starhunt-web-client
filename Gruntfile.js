@@ -76,8 +76,8 @@ module.exports = function (grunt) {
           'controllers/modals/DataVizController.js',
           'controllers/modals/EmbedController.js',
           'controllers/modals/ObservingLocationController.js',
-          'controls/move.js',
-          'controls/util.js'
+          'misc/move.js',
+          'misc/util.js'
         ],
         dest: 'wwtwebclient.js'
       },
