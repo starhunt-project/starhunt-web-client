@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="System.Security.Cryptography.X509Certificates" %>
 
@@ -1174,7 +1174,7 @@
                         ng-init="lookAt = 'Sky'"
                         ng-model="lookAt"
                         ng-change="lookAtDropdownChanged()"
-                        ng-options="type for type in lookTypes"></select>
+                        ng-options="type for type in ['Sky']"></select>
             </div>
             <div class="control">
                 <label localize="Imagery"></label>
