@@ -1,131 +1,13 @@
-<%@ Page Language="C#" %>
-<%@ Import Namespace="System.Globalization" %>
-<%@ Import Namespace="System.Security.Cryptography.X509Certificates" %>
-
-<script runat="server">
-
-    public bool Debug = false;
-    public bool DebugChrome = false;
-    public bool ADS = false;
-    public string DotMin = ".min.js";
-    // This enables the webclient to load in both the worldwidetelescope.org site
-    // with js/css/imagery on the cdn and in standalone mode without a cdn
-    public string ResourcesLocation;
-    public string ResourcesVersion = ConfigurationManager.AppSettings["ResourcesVersion"];
-    public string DebugQs = "?v=" + ConfigurationManager.AppSettings["ResourcesVersion"];
-    public string BodyClass;
-    public string ImgDir = "https://wwtweb.blob.core.windows.net/webclient/";
-
-    public enum Clients
-    {
-      Html5 = 0,
-      Silverlight = 1,
-      WWT = 2,
-      Mobile = 3
-    };
-    public Clients Client = Clients.Html5;
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-      ResourcesLocation = ConfigurationManager.AppSettings["WebClientResourcesLocation"] ?? ConfigurationManager.AppSettings["ResourcesLocation"] + "/webclient";
-      bool isMobile = Request.QueryString["mobile"] != null && Request.QueryString["mobile"] != "0";
-
-      BodyClass = string.Format("fs-player wwt-webclient-wrapper {0}", isMobile ? "mobile" : "desktop");
-
-      if (Request.QueryString["debug"] != null)
-      {
-        Random rnd = new Random();
-        //ResourcesVersion = rnd.Next(1, 999999).ToString();
-        //DebugQs = "?debug=true&v=" + ResourcesVersion;
-        Debug = true;
-        DotMin = ".js";
-        if (Request.QueryString["debug"] == "chrome")
-        {
-          Debug = false;
-          DebugChrome = true;
-          DebugQs = "";
-        }
-        else if (Request.QueryString["debug"] == "local")
-        {
-          DotMin = ".min.js" + DebugQs;
-        }
-
-      }
-      if (Request.QueryString["ads"] != null)
-      {
-        ADS = true;
-      }
-      if (Request.Cookies["preferredClient"] != null)
-      {
-        switch (Request.Cookies["preferredClient"].Value)
-        {
-          case "SL":
-            Client = Clients.Silverlight;
-            break;
-          case "WWT":
-            Client = Clients.WWT;
-            break;
-          case "Mobile":
-            Client = Clients.Mobile;
-            break;
-          default:
-            Client = Clients.Html5;
-            break;
-        }
-      }
-      if (Request.QueryString["client"] != null && !isMobile)
-      {
-        HttpCookie cookie = Request.Cookies["preferredClient"] ?? new HttpCookie("preferredClient");
-        char c = Request.QueryString["client"].ToString(CultureInfo.InvariantCulture).ToLower().ToCharArray()[0];
-        if (c == 'h')
-        {
-          Client = Clients.Html5;
-          cookie.Value = "HTML5";
-        }
-        else if (c == 's')
-        {
-          Client = Clients.Silverlight;
-          cookie.Value = "SL";
-        }
-        else if (c == 'm')
-        {
-          Client = Clients.Mobile;
-          cookie.Value = "Mobile";
-        }
-        else if (c == 'w')
-        {
-          Client = Clients.WWT;
-          cookie.Value = "WWT";
-        }
-
-        HttpContext.Current.Response.Cookies.Add(cookie);
-
-      }
-      else if (isMobile) {
-        Client = Clients.Mobile;
-      }
-      //if (Client == Clients.Html5 && isMobile)
-      //{
-      //    Response.Redirect(string.Format("/webclient/?client=mobile{0}", Debug ? "&debug=true" : ""));
-      //}
-      //else if (Client == Clients.Mobile && !isMobile)
-      //{
-      //    Response.Redirect(string.Format("/webclient/?client=html5{0}", Debug ? "&debug=true" : ""));
-      //}
-
-    }
-</script>
 <!DOCTYPE html>
 <html>
-<head runat="server">
+<head>
     <title>StarHunt!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" href="favicon.ico"/>
-    <link href="css/webclient.min.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
-    <link href="css/angular-motion.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
-    <link href="css/introjs.css?v=<%= ResourcesVersion%>" rel="stylesheet" />
+    <link href="css/webclient.min.css?v=QQRV" rel="stylesheet" />
+    <link href="css/angular-motion.css?v=QQRV" rel="stylesheet" />
+    <link href="css/introjs.css?v=QQRV" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.23/style/jquery.jscrollpane.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <style>
@@ -146,14 +28,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel<%=DotMin %>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.23/script/jquery.jscrollpane.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.3/pako_inflate.min.js"></script>
-    <script src="wwtwebclient<%=DotMin%>?v=<%= ResourcesVersion%>"></script>
+    <script src="wwtwebclient<%=DotMin%>?v=QQRV"></script>
 </head>
 <body
     class="<%= BodyClass %>"
     data-ng-app="wwtApp"
     data-res-location="<%= ResourcesLocation%>"
     data-version="1"
-    data-res-version="<%= ResourcesVersion%>"
+    data-res-version="QQRV"
     data-liveId="<%=ConfigurationManager.AppSettings["LiveClientId"]%>"
     data-standalone-mode="<%=ConfigurationManager.AppSettings["Standalone"]%>">
     <% if (Client == Clients.Html5 || Client == Clients.Mobile)
@@ -362,7 +244,7 @@
                     localize-only="alt" style="width:60px;height:60px;"/>
         </a>
         <a class="pull-left" href="/home" style="margin-left: -11px;">
-            <img src='<%=ImgDir %>wwtlogo.png?v=<%= ResourcesVersion%>'
+            <img src='<%=ImgDir %>wwtlogo.png?v=QQRV'
                 localize="WorldWide Telescope Logo"
                 localize-only="alt"
                 style="height:60px;width:60px"
@@ -1246,7 +1128,7 @@
         <div class="modal-content">
 
             <div class="modal-body">
-                <img src='<%=ImgDir %>wwtlogo.png?v=<%= ResourcesVersion%>'
+                <img src='<%=ImgDir %>wwtlogo.png?v=QQRV'
                     style="width:19%;height:19%;position:relative;left:-3px;margin-right:12px;"
                     class="pull-left"
                     localize="WorldWide Telescope Logo"
