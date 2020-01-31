@@ -34,7 +34,8 @@
       }
 
       StarHuntItem.prototype.get_thumbnailUrl = function () {
-        return '//www.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=folder';
+        // This is a nice generic stars-y image
+        return '//www.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=400514625';
       }
 
       StarHuntItem.prototype.get_name = function () {
