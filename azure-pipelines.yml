@@ -11,6 +11,7 @@ steps:
 
 - task: Grunt@0
   inputs:
+    gruntFile: 'Gruntfile.js'
     targets: 'dist-all'
   displayName: Build distribution directory with Grunt
 
