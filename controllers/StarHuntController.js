@@ -147,8 +147,22 @@
 
       // Markers
 
+      var MARKER_SIZE_DEG = 1 / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR;
+
       $scope.on_create_marker_click = function(event) {
-        console.log("marker click");
+        if (current_item == null) {
+          return;
+        }
+
+        var m = wwt.wc.createCircle();
+        m.set_id('starhunt_target' + current_item.get_name() + current_item._markers.length);
+        m.set_skyRelative(true);
+        m.set_fill(true);
+        m.set_fillColor('#ffff99');
+        m.set_radius(MARKER_SIZE_DEG);
+        m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec); // XXXX
+        wwt.wc.addAnnotation(m);
+        current_item._markers.push(m);
       }
 
       // Final initialization
