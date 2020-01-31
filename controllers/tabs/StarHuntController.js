@@ -111,10 +111,26 @@
       // Defining the set of targets
 
       var starhunt_items = [
-        new StarHuntItem("Source A", "/starhunt_data/A_J2000_msd_header_crop.fits",
+        new StarHuntItem("Source A", "starhunt_data/A_J2000_msd_header_crop.fits",
                          276.58756512446, -12.629856445751),
-        new StarHuntItem("Source B", "/starhunt_data/B_J2000_msd_header_crop.fits",
-                         276.48015568544, -12.085933420772)
+        new StarHuntItem("Source B", "starhunt_data/B_J2000_msd_header_crop.fits",
+                         276.48015568544, -12.085933420772),
+        new StarHuntItem("Source C", "starhunt_data/C_J2000_msd_header_crop.fits",
+                         280.70643669122, -4.0330137653732),
+        new StarHuntItem("Source D", "starhunt_data/D_J2000_msd_header_crop.fits",
+                         281.0843032635, -4.0038729282459),
+        new StarHuntItem("Source E", "starhunt_data/E_J2000_msd_header_crop.fits",
+                         280.80713427979, -3.7266555103755),
+        new StarHuntItem("Source F", "starhunt_data/F_J2000_msd_header_crop.fits",
+                         284.74722220156, 3.0861080163207),
+        new StarHuntItem("Source G", "starhunt_data/G_J2000_msd_header_crop.fits",
+                         284.20198245893, 1.3556447623029),
+        new StarHuntItem("Source H", "starhunt_data/H_J2000_msd_header_crop.fits",
+                         284.28179957343, 2.1562146713294),
+        new StarHuntItem("Source I", "starhunt_data/I_J2000_msd_header_crop.fits",
+                         286.03264466695, 5.1534229243648),
+        new StarHuntItem("Source J", "starhunt_data/J_J2000_msd_header_crop.fits",
+                         292.32688673287, 17.931773261226)
       ];
 
       // Image controls
