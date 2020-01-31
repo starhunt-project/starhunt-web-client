@@ -1,5 +1,14 @@
 # Azure Pipelines: build the Webclient
 
+trigger:
+  # Note that this pipeline will still run on pull requests. However,
+  # operations that require service connections -- namely the AzureFileCopy --
+  # will be skipped on PR builds, so randos can't just update our website by
+  # submitting a PR.
+  branches:
+    include:
+      - master
+
 pool:
   # We need to run on Windows to take advantage of the AzureFileCopy@3 task.
   vmImage: 'windows-latest'
