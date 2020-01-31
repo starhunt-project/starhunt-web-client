@@ -3,14 +3,8 @@
   [
     '$scope',
     '$rootScope',
-    'AppState',
-    'Places',
-    '$timeout',
-    'Util',
-    'ThumbList',
-    'UILibrary',
 
-    function ($scope, $rootScope, appState, places, $timeout, util, thumbList, uiLib) {
+    function ($scope, $rootScope) {
       // See controllers/tabs/StarHuntThumbsController.js for the definition
       // of the Item type.
 
