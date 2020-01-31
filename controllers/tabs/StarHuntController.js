@@ -125,6 +125,12 @@
 
       var NUM_CIRCLES = 4;
 
+      // Here's something fun. The WebGL renderer draws circles at the wrong
+      // size. The core code computes the rendered radius as the nominal one
+      // in degrees / 44, and you can bet that there is absolutely zero
+      // explanation about what the hell that number is. Work around this.
+      var CIRCLE_SIZE_CORRECTION_FACTOR = 0.786;
+
       function maybe_init_controls() {
         if (controls_initialized) {
           return;
@@ -146,7 +152,7 @@
           c.set_id('starhuntcirc' + i);
           c.set_skyRelative(true);
           c.setCenter(0, 0); // yikes!
-          c.set_radius((i + 1) * cur_size / 3600.);
+          c.set_radius((i + 1) * cur_size / 3600. * CIRCLE_SIZE_CORRECTION_FACTOR);
           wwt.wc.addAnnotation(c);
           circle_annotations.push(c);
         }
@@ -175,8 +181,29 @@
         var i;
 
         for (i = 0; i < circle_annotations.length; i++) {
-          circle_annotations[i].set_radius((i + 1) * cur_size / 3600);
+          circle_annotations[i].set_radius((i + 1) * cur_size / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR);
         }
+      }
+
+      function on_viewport_changed(event, viewport) {
+        if (!viewport.isDirty && !viewport.init) {
+          return;
+        }
+
+        var dist = 0.0,
+            pa = 0.0;
+
+        if (current_item != null) {
+          var lon_rad = viewport.RA * Math.PI / 12; // this is in hours
+          var lat_rad = viewport.Dec * Math.PI / 180; // this is in degrees
+          dist = sphdist(lat_rad,
+                         lon_rad,
+                         current_item._source_dec_deg * Math.PI / 180,
+                         current_item._source_ra_deg * Math.PI / 180);
+        }
+
+        $rootScope.starhunt_cur_ctrdist = float_to_text(dist * 206265);
+        $rootScope.starhunt_cur_ctrpa = float_to_text(pa * 180 / Math.PI);
       }
 
       // Thumbnail list UI logic
@@ -226,8 +253,45 @@
 
       // Final initialization
 
+      $rootScope.cur_circlesize = 20; // keep synced with index.html
+      $rootScope.starhunt_cur_ctrdist = '';
+      $rootScope.starhunt_cur_ctrpa = '';
+
       $('body').append($('#researchMenu'));
       init_thumbnail_ui();
+
+      $rootScope.$on('viewportchange', on_viewport_changed);
+
+      // utilities
+
+      function float_to_text(v) {
+        if (v > 999) {
+          return '>999';
+        }
+
+        if (v < 0.1) {
+          return '0';
+        }
+
+        if (v < 10) {
+          return '' + v.toFixed(1);
+        }
+
+        return '' + v.toFixed(0);
+      }
+
+      function sphdist(lat1, lon1, lat2, lon2) {
+        // from pwkit.astutil.sphdist; "specialized Vincenty formula"
+        var cd = Math.cos(lon2 - lon1);
+        var sd = Math.sin(lon2 - lon1);
+        var c2 = Math.cos(lat2);
+        var c1 = Math.cos(lat1);
+        var s2 = Math.sin(lat2);
+        var s1 = Math.sin(lat1);
+        var a = Math.hypot(c2 * sd, c1 * s2 - s1 * c2 * cd);
+        var b = s1 * s2 + c1 * c2 * cd;
+        return Math.atan2(a, b);
+      }
     }
   ]
 );

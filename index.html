@@ -704,6 +704,17 @@
         <!-- StarHunt custom UI -- panes for layer manager / lefthand panel -->
         <div ng-switch="starhuntActiveLeftPanel">
           <div ng-switch-when="starhunt-ui">
+            <!-- Positioning readout -->
+            <div class="">
+              <span localize="Distance from target (arcsec): "></span>
+              <span>{{starhunt_cur_ctrdist}}</span>
+            </div>
+
+            <div class="">
+              <span localize="Angle from target (deg): "></span>
+              <span>{{starhunt_cur_ctrpa}}</span>
+            </div>
+
             <!-- Circle size -->
             <label id="starhunt-circlesize-label" for="starhunt-circlesize" localize="Circle Size (arcsec): "></label>
             <span>{{cur_circlesize}}</span>
