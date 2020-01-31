@@ -42,8 +42,9 @@ grunt dist-all
 ```
 
 To test the website locally, you need to download the project’s FITS data
-files and place them in the directory `starhunt_data/`. Then, we recommend
-running:
+files and place them in the directory `starhunt_data/`. **If any files are
+missing, the JavaScript will get stuck in an infinite loop and nothing will
+work!** Then, we recommend running:
 
 ```
 npx http-server -p 8888 dist/
