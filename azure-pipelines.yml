@@ -26,3 +26,11 @@ steps:
     publishLocation: 'pipeline'
     artifactName: wwt-webclient-deployment
   displayName: Publish web deployment artifacts
+
+- task: AzureFileCopy@3
+  inputs:
+    SourcePath: '$(build.artifactStagingDirectory)'
+    azureSubscription: 'azure-subscription'
+    Destination: 'AzureBlob'
+    storage: 'chalmersstarhunt'
+    ContainerName: '$web'
