@@ -14,8 +14,7 @@
       // See controllers/tabs/StarHuntThumbsController.js for the definition
       // of the Item type.
 
-      var current_item = null,
-          controls_initialized = false;
+      var current_item = null;
 
       $rootScope.starhunt_target_selected = function(item) {
         // Called when the user clicks on a target in the top ribbon.
@@ -25,26 +24,8 @@
         }
 
         current_item = item;
-
-        maybe_create_circles();
-
-        // Update the opacity readout.
-
-        if (item._fits_layer == null) {
-          $scope.starhunt_cur_opacity = 100;
-          //$("#starhunt-opacity").val(100);
-        } else {
-          $scope.starhunt_cur_opacity = item._fits_layer.get_opacity() * 100;
-          //$("#starhunt-opacity").val(item._fits_layer.get_opacity() * 100);
-        }
-
-        // Update the circles to be centered correctly.
-
-        var i;
-
-        for (i = 0; i < circle_annotations.length; i++) {
-          circle_annotations[i].setCenter(item._source_ra_deg, item._source_dec_deg);
-        }
+        update_opacity_for_new_target(item);
+        update_circles_for_new_target(item);
       }
 
       // Opacity control
@@ -63,7 +44,17 @@
         current_item._fits_layer.set_opacity(0.01 * $scope.starhunt_cur_opacity);
       }
 
-      // Circle size control
+      function update_opacity_for_new_target(item) {
+        // Note: changing the $scope variable causes the HTML DOM element to
+        // automagically update.
+        if (item._fits_layer == null) {
+          $scope.starhunt_cur_opacity = 100;
+        } else {
+          $scope.starhunt_cur_opacity = item._fits_layer.get_opacity() * 100;
+        }
+      }
+
+      // Circle size control.
       //
       // Here's something fun. The WebGL renderer draws circles at the wrong
       // size. The core code computes the rendered radius as the nominal one
@@ -106,6 +97,16 @@
 
         for (i = 0; i < circle_annotations.length; i++) {
           circle_annotations[i].set_radius((i + 1) * cur_size / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR);
+        }
+      }
+
+      function update_circles_for_new_target(item) {
+        maybe_create_circles();
+
+        var i;
+
+        for (i = 0; i < circle_annotations.length; i++) {
+          circle_annotations[i].setCenter(item._source_ra_deg, item._source_dec_deg);
         }
       }
 
