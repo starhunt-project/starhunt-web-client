@@ -111,9 +111,9 @@
 
       var starhunt_items = [
         new StarHuntItem("Source A", "/starhunt_data/A_J2000_msd_header_crop.fits",
-                         276.53465430751, -12.681840061781),
+                         276.58756512446, -12.629856445751),
         new StarHuntItem("Source B", "/starhunt_data/B_J2000_msd_header_crop.fits",
-                         276.46188334299, -12.10371735969)
+                         276.48015568544, -12.085933420772)
       ];
 
       // Image controls
