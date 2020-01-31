@@ -80,6 +80,7 @@
           c.set_id('starhuntcirc' + i);
           c.set_skyRelative(true);
           c.setCenter(0, -89); // yikes!
+          c.set_lineColor('#99ffd6');
           wwt.wc.addAnnotation(c);
           circle_annotations.push(c);
         }
@@ -112,6 +113,9 @@
 
       // Distance readout control
 
+      $scope.starhunt_cur_ctrdist = '';
+      $scope.starhunt_cur_ctrpa = '';
+
       function on_viewport_changed(event, viewport) {
         if (!viewport.isDirty && !viewport.init) {
           return;
@@ -121,8 +125,8 @@
             pa = 0.0;
 
         if (current_item != null) {
-          var lon_rad = viewport.RA * Math.PI / 12; // this is in hours
-          var lat_rad = viewport.Dec * Math.PI / 180; // this is in degrees
+          var lon_rad = viewport.RA * Math.PI / 12; // hours => radians
+          var lat_rad = viewport.Dec * Math.PI / 180; // degrees => radians
           dist = sphdist(
             current_item._source_dec_deg * Math.PI / 180,
             current_item._source_ra_deg * Math.PI / 180,
@@ -137,8 +141,8 @@
           );
         }
 
-        $rootScope.starhunt_cur_ctrdist = float_to_text(dist * 206265);
-        $rootScope.starhunt_cur_ctrpa = float_to_text(pa * 180 / Math.PI);
+        $scope.starhunt_cur_ctrdist = float_to_text(dist * 206265);
+        $scope.starhunt_cur_ctrpa = float_to_text(pa * 180 / Math.PI);
       }
 
       // Markers
@@ -149,8 +153,6 @@
 
       // Final initialization
 
-      $rootScope.starhunt_cur_ctrdist = '';
-      $rootScope.starhunt_cur_ctrpa = '';
       $rootScope.$on('viewportchange', on_viewport_changed);
 
       // utilities
