@@ -22,6 +22,12 @@
         update_circles_for_new_target(item);
       }
 
+      // Utilities
+
+      var D2R = Math.PI / 180.,
+          R2D = 180. / Math.PI,
+          D2H = 1. / 15;
+
       // Opacity control
 
       $scope.starhunt_cur_opacity = 100;  // sync with index.html
@@ -53,21 +59,25 @@
       // Here's something fun. The WebGL renderer draws circles at the wrong
       // size. The core code computes the rendered radius as the nominal one
       // in degrees / 44, and you can bet that there is absolutely zero
-      // explanation about what the hell that number is. Work around this.
-      var CIRCLE_SIZE_CORRECTION_FACTOR = 0.786;
-      var NUM_CIRCLES = 4;
+      // explanation about what the hell that number is. Wherever it comes
+      // from, it seems to be not quire right. Work around it with an
+      // empirical fudge factor:
+      var CIRCLE_SIZE_CORRECTION_FACTOR = 0.779;
+      var NUM_CIRCLES = 10;
+      var NUM_RADIALS = 12;  // => 30 degrees each
 
-      var circle_annotations = null;
+      var circle_annotations = null,
+          radial_annotations = null;
 
       $scope.starhunt_cur_circlesize = 20;  // sync with index.html
 
-      function maybe_create_circles() {
+      function maybe_create_circles(item) {
         if (circle_annotations != null) {
           return;
         }
 
-        circle_annotations = [];
         var i;
+        circle_annotations = [];
 
         for (i = 0; i < NUM_CIRCLES; i++) {
           var c = wwt.wc.createCircle();
@@ -77,6 +87,24 @@
           c.set_lineColor('#99ffd6');
           wwt.wc.addAnnotation(c);
           circle_annotations.push(c);
+        }
+
+        radial_annotations = [];
+
+        for (i = 0; i < NUM_RADIALS; i++) {
+          var r = wwt.wc.createPolyLine(false);
+          r.set_id('starhuntradial' + i);
+          r.addPoint(0, -89);
+          r.addPoint(0.01, -89.1);
+
+          if (i == 0) {
+            r.set_lineColor('#ff6666');
+          } else {
+            r.set_lineColor('#99ffd6');
+          }
+
+          wwt.wc.addAnnotation(r);
+          radial_annotations.push(r);
         }
 
         $scope.on_circlesize_changed();
@@ -93,15 +121,67 @@
         for (i = 0; i < circle_annotations.length; i++) {
           circle_annotations[i].set_radius((i + 1) * cur_size / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR);
         }
+
+        update_radials(current_item);
       }
 
       function update_circles_for_new_target(item) {
-        maybe_create_circles();
+        maybe_create_circles(item);
 
         var i;
 
         for (i = 0; i < circle_annotations.length; i++) {
           circle_annotations[i].setCenter(item._source_ra_deg, item._source_dec_deg);
+        }
+
+        update_radials(item);
+      }
+
+      $scope.on_recenter_circles_click = function(event) {
+        if (current_item == null) {
+          return;
+        }
+
+        current_item._source_ra_deg = wwt.viewport.RA * 15;
+        current_item._source_dec_deg = wwt.viewport.Dec;
+        update_circles_for_new_target(current_item);
+        update_radials(current_item);
+      }
+
+      function update_radials(item) {
+        // Figure out which way is galactic North by a dumb conversion.
+
+        var equ0_deg = [item._source_ra_deg, item._source_dec_deg];
+        var gal0_deg = wwtlib.Coordinates.j2000toGalactic(equ0_deg[0], equ0_deg[1]);
+        var gal1_deg = [gal0_deg[0], gal0_deg[1] + 0.01];
+        var equ1_deg = wwtlib.Coordinates.galactictoJ2000(gal1_deg[0], gal1_deg[1]);
+        var pa_rad = sphbear(
+          equ0_deg[1] * D2R,
+          equ0_deg[0] * D2R,
+          equ1_deg[1] * D2R,
+          equ1_deg[0] * D2R
+        );
+        var distance_rad = NUM_CIRCLES * parseFloat($scope.starhunt_cur_circlesize) / 206265;
+
+        // No supported way to edit polyline points, but it's javascript, so just reach into
+        // those SDK internals ...
+
+        var i;
+        var pa_offset = 2 * Math.PI / NUM_RADIALS;
+
+        for (i = 0; i < NUM_RADIALS; i++) {
+          var equ2_rad_rev = sphofs(equ0_deg[1] * D2R, equ0_deg[0] * D2R, distance_rad, pa_rad);
+          radial_annotations[i]._points$1[0] = wwtlib.Coordinates.raDecTo3d(
+            equ0_deg[0] * D2H,
+            equ0_deg[1]
+          );
+          radial_annotations[i]._points$1[1] = wwtlib.Coordinates.raDecTo3d(
+            equ2_rad_rev[1] * R2D * D2H,
+            equ2_rad_rev[0] * R2D
+          );
+          radial_annotations[i].annotationDirty = true;
+
+          pa_rad += pa_offset;
         }
       }
 
@@ -265,6 +345,58 @@
         }
 
         return bearing;
+      }
+
+      function sphofs(lat1, lon1, r, pa) {
+        // from pwkit.astutil.sphofs.
+        //
+        // Offset from one location on the sphere to another.
+        //
+        // This function is given a start location, expressed as a latitude and
+        // longitude, a distance to offset, and a direction to offset (expressed as a
+        // bearing, AKA position angle). It uses these to compute a final location.
+        // This function mirrors :func:`sphdist` and :func:`sphbear` such that::
+        //
+        //   # If:
+        //   r = sphdist (lat1, lon1, lat2a, lon2a)
+        //   pa = sphbear (lat1, lon1, lat2a, lon2a)
+        //   lat2b, lon2b = sphofs (lat1, lon1, r, pa)
+        //   # Then lat2b = lat2a and lon2b = lon2a
+        //
+        // Arguments are:
+        //
+        // lat1
+        //   The latitude of the start location.
+        // lon1
+        //   The longitude of the start location.
+        // r
+        //   The distance to offset by.
+        // pa
+        //   The position angle (“PA” or bearing) to offset towards.
+        //
+        // Returns a pair ``(lat2, lon2)``. All arguments and the return values are
+        // measured in radians. The arguments may be vectors. The PA sign convention
+        // is astronomical, measuring orientation east from north.
+        //
+        // Note that the ordering of the arguments and return values maps to the
+        // nonstandard ordering ``(Dec, RA)`` in equatorial coordinates. In a
+        // spherical projection it maps to ``(Y, X)`` which may also be unexpected.
+        //
+        // The offset is computed naively as::
+        //
+        //   lat2 = lat1 + r * cos (pa)
+        //   lon2 = lon1 + r * sin (pa) / cos (lat2)
+        //
+        // This will fail for large offsets. Error checking can be done in two ways.
+        // If *tol* is not None, :func:`sphdist` is used to calculate the actual
+        // distance between the two locations, and if the magnitude of the fractional
+        // difference between that and *r* is larger than *tol*, :exc:`ValueError` is
+        // raised. This will add an overhead to the computation that may be
+        // significant if you're going to be calling this function a lot.
+
+        lat2 = lat1 + r * Math.cos(pa);
+        lon2 = lon1 + r * Math.sin(pa) / Math.cos(lat2);
+        return [lat2, lon2];
       }
     }
   ]
