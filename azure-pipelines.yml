@@ -1,7 +1,8 @@
 # Azure Pipelines: build the Webclient
 
 pool:
-  vmImage: 'ubuntu-latest'
+  # We need to run on Windows to take advantage of the AzureFileCopy@3 task.
+  vmImage: 'windows-latest'
 
 steps:
 - task: Npm@1
