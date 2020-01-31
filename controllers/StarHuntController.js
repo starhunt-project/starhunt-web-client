@@ -55,7 +55,7 @@
       // in degrees / 44, and you can bet that there is absolutely zero
       // explanation about what the hell that number is. Work around this.
       var CIRCLE_SIZE_CORRECTION_FACTOR = 0.786;
-      var NUM_CIRCLES = 4;
+      var NUM_CIRCLES = 10;
 
       var circle_annotations = null;
 
