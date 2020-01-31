@@ -105,6 +105,16 @@
         }
       }
 
+      $scope.on_recenter_circles_click = function(event) {
+        if (current_item == null) {
+          return;
+        }
+
+        current_item._source_ra_deg = wwt.viewport.RA * 15;
+        current_item._source_dec_deg = wwt.viewport.Dec;
+        update_circles_for_new_target(current_item);
+      }
+
       // Distance readout control
 
       $scope.starhunt_cur_ctrdist = '';

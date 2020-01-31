@@ -731,6 +731,11 @@
                    ng-model="starhunt_cur_circlesize"
                    ng-change="on_circlesize_changed()" />
 
+            <!-- Recenter Circles -->
+            <div>
+              <a class="btn" ng-click="on_recenter_circles_click()">Recenter Circles</a>
+            </div>
+
             <!-- Opacity control -->
             <label id="starhunt-opacity-label" for="starhunt-opacity" localize="Opacity: "></label>
             <span>{{starhunt_cur_opacity}}%</span>
