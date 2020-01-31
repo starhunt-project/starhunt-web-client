@@ -2,9 +2,9 @@
 
 [![Build Status](https://dev.azure.com/starhunt-project/starhunt-infra/_apis/build/status/starhunt-project.starhunt-web-client?branchName=master)](https://dev.azure.com/starhunt-project/starhunt-infra/_build/latest?definitionId=1&branchName=master)
 
-This repository contains a customized version of the
-[AAS WorldWide Telescope] (WWT) [web client] intended for use in the StarHunt project
-spearheaded by [Jonathan Tan] at [Chalmers University]. See
+This repository contains a forked version of the [AAS WorldWide Telescope]
+(WWT) [web client] intended for use in the StarHunt project spearheaded by
+[Jonathan Tan] at [Chalmers University]. See
 [worldwidetelescope/wwt-web-client] for details about the upstream project.
 
 [AAS WorldWide Telescope]: http://worldwidetelescope.org/
@@ -15,7 +15,43 @@ spearheaded by [Jonathan Tan] at [Chalmers University]. See
 
 The StarHunt web client currently runs at:
 
-### http://chalmers-starhunt.azurewebsites.net/
+### http://chalmersstarhunt.z13.web.core.windows.net/
+
+
+## Building and Testing
+
+In order to build and test the website, you need:
+
+1. [Node.js](https://nodejs.org/), specifically the `npm` command. If you need
+   to install Node.js, use your operating system’s package manager or visit
+   [nodejs.org](https://nodejs.org/) for installation instructions.
+2. The [Grunt](https://gruntjs.com/) task runner, specifically the `grunt`
+   command. Once again, install it using your operating system’s package
+   manager or [see the Grunt website](https://gruntjs.com/getting-started).
+
+The first time you check out these files, run:
+
+```
+npm install
+```
+
+Once that has been done, you can build the website with:
+
+```
+grunt dist-all
+```
+
+To test the website locally, you need to download the project’s FITS data
+files and place them in the directory `starhunt_data/`. Then, we recommend
+running:
+
+```
+npx http-server -p 8888 dist/
+```
+
+You can then visit the URL <http://localhost:8888/> to test out the web
+app in your browser.
+
 
 ## Legalities
 

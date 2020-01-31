@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           'misc/move.js',
           'misc/util.js'
         ],
-        dest: 'wwtwebclient.js'
+        dest: 'dist/wwtwebclient.js'
       },
     },
 
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
       },
       webclient: {
         src: '<%= concat.webclient.dest %>',
-        dest: 'wwtwebclient.min.js'
+        dest: 'dist/wwtwebclient.min.js'
       },
     },
 
@@ -102,10 +102,10 @@ module.exports = function (grunt) {
           sourceMap: true,
           outputSourceFiles: true,
           sourceMapURL: 'webclient.css.map',
-          sourceMapFilename: 'css/webclient.css.map'
+          sourceMapFilename: 'dist/css/webclient.css.map'
         },
         src: 'css/webclient.less',
-        dest: 'css/webclient.css'
+        dest: 'dist/css/webclient.css'
       }
     },
 
@@ -126,7 +126,7 @@ module.exports = function (grunt) {
         options: {
           map: true
         },
-        src: 'css/webclient.css'
+        src: '<%= less.compileCore.dest %>'
       }
     },
 
@@ -137,8 +137,36 @@ module.exports = function (grunt) {
         noAdvanced: true
       },
       minifyCore: {
-        src: 'css/webclient.css',
-        dest: 'css/webclient.min.css'
+        src: '<%= autoprefixer.core.src %>',
+        dest: 'dist/css/webclient.min.css'
+      }
+    },
+
+    copy: {
+      dist: {
+        files: [
+          {
+            expand: false,
+            src: [
+              'css/introjs.css',
+              'css/angular-motion.css',
+              'css/skin.min.css',
+              'favicon.ico',
+              'index.html'
+            ],
+            dest: 'dist/'
+          }, {
+            expand: true,
+            src: [
+              'fonts/*',
+              'Images/*',
+              'starhunt_data/**',
+              'views/**'
+            ],
+            dest: 'dist/',
+            filter: 'isFile'
+          }
+        ]
       }
     }
   });
@@ -147,4 +175,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dist-js', ['concat:webclient', 'uglify:webclient']);
   grunt.registerTask('dist-css', ['less:compileCore', 'autoprefixer:core', 'cssmin:minifyCore']);
+  grunt.registerTask('dist-all', ['dist-js', 'dist-css', 'copy:dist']);
 };

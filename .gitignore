@@ -1,9 +1,10 @@
-/bin/
 /css/webclient.css
 /css/webclient.css.map
 /css/webclient.min.css
+/dist/
 /node_modules/
-/obj/
 /package-lock.json
+/starhunt_data/
+/wwtsdk.js
 /wwtwebclient.js
 /wwtwebclient.min.js

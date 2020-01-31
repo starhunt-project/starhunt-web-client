@@ -1,47 +1,34 @@
 # Azure Pipelines: build the Webclient
 
 trigger:
-- master
+  # Note that this pipeline will still run on pull requests. However,
+  # operations that require service connections -- namely the AzureFileCopy --
+  # will be skipped on PR builds, so randos can't just update our website by
+  # submitting a PR.
+  branches:
+    include:
+      - master
 
 pool:
+  # We need to run on Windows to take advantage of the AzureFileCopy@3 task.
   vmImage: 'windows-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: 'WWTWebClient'
   displayName: NPM install
 
 - task: Grunt@0
   inputs:
-    gruntFile: 'WWTWebClient\Gruntfile.js'
-    targets: 'dist-js dist-css'
-    gruntCli: 'node_modules/grunt-cli/bin/grunt'
-  displayName: Compile Less to CSS with Grunt
+    gruntFile: 'Gruntfile.js'
+    targets: 'dist-all'
+  displayName: Build distribution directory with Grunt
 
-- task: VSBuild@1
+- task: CopyFiles@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    sourceFolder: '$(build.sourcesDirectory)/dist'
+    targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishPipelineArtifact@1
   inputs:
@@ -50,10 +37,10 @@ steps:
     artifactName: wwt-webclient-deployment
   displayName: Publish web deployment artifacts
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureFileCopy@3
   inputs:
-    ConnectionType: 'AzureRM'
+    SourcePath: '$(build.artifactStagingDirectory)'
     azureSubscription: 'azure-subscription'
-    appType: 'webApp'
-    WebAppName: 'chalmers-starhunt'
-    packageForLinux: '$(build.artifactStagingDirectory)\WWTWebClient.zip'
+    Destination: 'AzureBlob'
+    storage: 'chalmersstarhunt'
+    ContainerName: '$web'
