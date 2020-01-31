@@ -196,10 +196,18 @@
         if (current_item != null) {
           var lon_rad = viewport.RA * Math.PI / 12; // this is in hours
           var lat_rad = viewport.Dec * Math.PI / 180; // this is in degrees
-          dist = sphdist(lat_rad,
-                         lon_rad,
-                         current_item._source_dec_deg * Math.PI / 180,
-                         current_item._source_ra_deg * Math.PI / 180);
+          dist = sphdist(
+            current_item._source_dec_deg * Math.PI / 180,
+            current_item._source_ra_deg * Math.PI / 180,
+            lat_rad,
+            lon_rad
+          );
+          pa = sphbear(
+            current_item._source_dec_deg * Math.PI / 180,
+            current_item._source_ra_deg * Math.PI / 180,
+            lat_rad,
+            lon_rad
+          );
         }
 
         $rootScope.starhunt_cur_ctrdist = float_to_text(dist * 206265);
@@ -269,11 +277,17 @@
           return '>999';
         }
 
-        if (v < 0.1) {
+        if (v < -999) {
+          return '<-999';
+        }
+
+        var av = Math.abs(v);
+
+        if (av < 0.1) {
           return '0';
         }
 
-        if (v < 10) {
+        if (av < 10) {
           return '' + v.toFixed(1);
         }
 
@@ -291,6 +305,73 @@
         var a = Math.hypot(c2 * sd, c1 * s2 - s1 * c2 * cd);
         var b = s1 * s2 + c1 * c2 * cd;
         return Math.atan2(a, b);
+      }
+
+      function sphbear(lat1, lon1, lat2, lon2) {
+        // from pwkit.astutil.sphbear.
+        //
+        // Calculate the bearing between two locations on a sphere.
+        //
+        // lat1
+        //   The latitude of the first location.
+        // lon1
+        //   The longitude of the first location.
+        // lat2
+        //   The latitude of the second location.
+        // lon2
+        //   The longitude of the second location.
+        //
+        // The bearing (AKA the position angle, PA) is the orientation of
+        // point 2 with regards to point 1 relative to the longitudinal axis.
+        // Returns the bearing in radians. All arguments are in radians as
+        // well.
+        //
+        // Note that the ordering of the arguments maps to the nonstandard
+        // ordering ``(Dec, RA)`` in equatorial coordinates. In a spherical
+        // projection it maps to ``(Y, X)`` which may also be unexpected.
+        //
+        // The sign convention is astronomical: bearings range from -π to π,
+        // with negative values if point 2 is in the western hemisphere with
+        // regards to point 1, positive if it is in the eastern. (That is,
+        // “east from north”.) If point 1 is very near the pole, the bearing
+        // is undefined and the result is NaN.
+        //
+        // Derived from ``bear()`` in `angles.py from Prasanth Nair
+        // <https://github.com/phn/angles>`_. His version is BSD licensed.
+        // This one is sufficiently different that I think it counts as a
+        // separate implementation. [This version is then derived in turn from
+        // pwkit.]
+
+        var v1 = wwtlib.Vector3d.create(
+          Math.cos(lat1) * Math.cos(lon1),
+          Math.cos(lat1) * Math.sin(lon1),
+          Math.sin(lat1)
+        );
+
+        var v2 = wwtlib.Vector3d.create(
+          Math.cos(lat2) * Math.cos(lon2),
+          Math.cos(lat2) * Math.sin(lon2),
+          Math.sin(lat2)
+        );
+
+        if (Math.hypot(v1.x, v2.x) < 1e-4) {
+          return 0.0; // near a pole; don't bother
+        }
+
+        var p12 = wwtlib.Vector3d.cross(v1, v2);  // ~"perpendicular to great circle containing points"
+        var p1z = wwtlib.Vector3d.create(  // ~"perp to base and Z axis"
+          v1.y,
+          -v1.x,
+          0
+        );
+        var cm = wwtlib.Vector3d.getLength(wwtlib.Vector3d.cross(p12, p1z));  // ~"angle between the vectors"
+        var bearing = Math.atan2(cm, wwtlib.Vector3d.dot(p12, p1z));
+
+        if (p12.z < 0) {  // convert to [-pi/2, pi/2]
+          bearing = -bearing;
+        }
+
+        return bearing;
       }
     }
   ]
