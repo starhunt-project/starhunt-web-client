@@ -13,11 +13,13 @@
     function ($scope, $rootScope, appState, places, $timeout, util, thumbList, uiLib) {
       // A dumb, fake Place workalike for our custom app
 
-      function StarHuntItem(name, fits_url) {
+      function StarHuntItem(name, fits_url, source_ra_deg, source_dec_deg) {
         var item = Object.create(StarHuntItem.prototype);
         item._name = name;
         item._fits_url = fits_url;
         item._fits_layer = null;
+        item._source_ra_deg = source_ra_deg;
+        item._source_dec_deg = source_dec_deg;
 
         // Place stuff
         item.thumb = null;
@@ -71,6 +73,14 @@
         }
 
         current_item = this;
+
+        // Update the circles to be centered correctly.
+
+        var i;
+
+        for (i = 0; i < circle_annotations.length; i++) {
+          circle_annotations[i].setCenter(this._source_ra_deg, this._source_dec_deg);
+        }
       }
 
       StarHuntItem.prototype.get_isFolder = function () {
@@ -100,14 +110,19 @@
       // Defining the set of targets
 
       var starhunt_items = [
-        new StarHuntItem("Source A", "/starhunt_data/A_J2000_msd_header_crop.fits"),
-        new StarHuntItem("Source B", "/starhunt_data/B_J2000_msd_header_crop.fits")
+        new StarHuntItem("Source A", "/starhunt_data/A_J2000_msd_header_crop.fits",
+                         276.53465430751, -12.681840061781),
+        new StarHuntItem("Source B", "/starhunt_data/B_J2000_msd_header_crop.fits",
+                         276.46188334299, -12.10371735969)
       ];
 
       // Image controls
 
       var current_item = null,
+          circle_annotations = null,
           controls_initialized = false;
+
+      var NUM_CIRCLES = 4;
 
       function maybe_init_controls() {
         if (controls_initialized) {
@@ -117,6 +132,23 @@
         var opacity_dom = $("#starhunt-opacity");
         // Need to watch the "input" event to get changes before mouse-up:
         opacity_dom.on('input change', function () { on_opacity_changed(opacity_dom) });
+
+        var circlesize_dom = $("#starhunt-circlesize");
+        circlesize_dom.on('input change', function () { on_circlesize_changed(circlesize_dom) });
+        var cur_size = circlesize_dom.val();
+
+        circle_annotations = [];
+        var i;
+
+        for (i = 0; i < NUM_CIRCLES; i++) {
+          var c = wwt.wc.createCircle();
+          c.set_id('starhuntcirc' + i);
+          c.set_skyRelative(true);
+          c.setCenter(0, 0); // yikes!
+          c.set_radius((i + 1) * cur_size / 3600.);
+          wwt.wc.addAnnotation(c);
+          circle_annotations.push(c);
+        }
 
         controls_initialized = true;
       }
@@ -131,6 +163,19 @@
         }
 
         current_item._fits_layer.set_opacity(0.01 * opacity_dom.val());
+      }
+
+      function on_circlesize_changed(circlesize_dom) {
+        if (circle_annotations == null) {
+          return;
+        }
+
+        var cur_size = circlesize_dom.val();
+        var i;
+
+        for (i = 0; i < circle_annotations.length; i++) {
+          circle_annotations[i].set_radius((i + 1) * cur_size / 3600);
+        }
       }
 
       // Thumbnail list UI logic
