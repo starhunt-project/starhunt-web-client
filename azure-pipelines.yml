@@ -1,47 +1,23 @@
 # Azure Pipelines: build the Webclient
 
-trigger:
-- master
-
 pool:
-  vmImage: 'windows-latest'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: 'WWTWebClient'
   displayName: NPM install
 
 - task: Grunt@0
   inputs:
-    gruntFile: 'WWTWebClient\Gruntfile.js'
-    targets: 'dist-js dist-css'
-    gruntCli: 'node_modules/grunt-cli/bin/grunt'
-  displayName: Compile Less to CSS with Grunt
+    targets: 'dist-all'
+  displayName: Build distribution directory with Grunt
 
-- task: VSBuild@1
+- task: CopyFiles@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    sourceFolder: '$(build.sourcesDirectory)/dist'
+    targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishPipelineArtifact@1
   inputs:
@@ -49,11 +25,3 @@ steps:
     publishLocation: 'pipeline'
     artifactName: wwt-webclient-deployment
   displayName: Publish web deployment artifacts
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'azure-subscription'
-    appType: 'webApp'
-    WebAppName: 'chalmers-starhunt'
-    packageForLinux: '$(build.artifactStagingDirectory)\WWTWebClient.zip'
