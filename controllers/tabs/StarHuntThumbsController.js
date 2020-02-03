@@ -96,6 +96,7 @@
       // Defining the set of targets
 
       var starhunt_items = [
+        //IRDC sources
         new StarHuntItem("G18.82-00.28", "starhunt_data/A_J2000_msd_header_crop.fits",
                          276.58756512446, -12.629856445751),
         new StarHuntItem("G19.27+00.07", "starhunt_data/B_J2000_msd_header_crop.fits",
@@ -116,8 +117,37 @@
                          286.03264466695, 5.1534229243648),
         new StarHuntItem("G53.11+00.05", "starhunt_data/J_J2000_msd_header_crop.fits",
                          292.32688673287, 17.931773261226),
+        //SOMA sources
+        new StarHuntItem("AFGL4029", "starhunt_data/SOMA/AFGL4029_SOFIA37um.fits",
+                         45.3844857, 60.4870907),
+        new StarHuntItem("AFGL437", "starhunt_data/SOMA/AFGL437_SOFIA37um.fits",
+                         46.8518494, 58.5135955),
+        new StarHuntItem("CepA", "starhunt_data/SOMA/CepA_SOFIA37um.fits",
+                         344.079787, 62.032562),
+        new StarHuntItem("G305.20", "starhunt_data/SOMA/G305.20_SOFIA37uma.fits",
+                         197.793527, -62.577527),
+        new StarHuntItem("G309.92", "starhunt_data/SOMA/G309.92_SOFIA37uma.fits",
+                         207.67248, -61.58708),
+        new StarHuntItem("G339.88", "starhunt_data/SOMA/G339.88_SOFIA37uma.fits",
+                         253.01985, -46.14281),
         new StarHuntItem("G35.2-0.74N", "starhunt_data/SOMA/G35_SOFIA37um.fits",
-                         284.554377, 1.676893)
+                         284.554377, 1.676893),
+        new StarHuntItem("G35.58", "starhunt_data/SOMA/G35.58_SOFIA37um.fits",
+                         284.094112, 2.341021),
+        new StarHuntItem("G45", "starhunt_data/SOMA/G45_SOFIA37um.fits",
+                         288.60687, 11.15752),
+        new StarHuntItem("G45.12", "starhunt_data/SOMA/G45.12_SOFIA37um.fits",
+                         288.36611, 10.89366),
+        new StarHuntItem("G49.27", "starhunt_data/SOMA/G49.27_SOFIA37um.fits",
+                         290.777863, 14.33655),
+        new StarHuntItem("IRAS07299", "starhunt_data/SOMA/IRAS07299_SOFIA37um.fits",
+                         113.04036, -16.97001),//not very exciting source (to be changed!)
+        new StarHuntItem("IRAS16562", "starhunt_data/SOMA/IRAS16562_SOFIA37um.fits",
+                         254.92355, -40.06229),
+        new StarHuntItem("IRAS20126", "starhunt_data/SOMA/IRAS20126_SOFIA37um.fits",
+                         303.60879, 41.22569),//not very exciting source (to be changed!)
+        new StarHuntItem("NGC7538", "starhunt_data/SOMA/NGC7538_SOFIA37um.fits",
+                         348.50722, 61.45551)
       ];
 
       // Thumbnail list UI logic
