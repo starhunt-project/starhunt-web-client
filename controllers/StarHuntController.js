@@ -221,7 +221,7 @@
 
       // Markers
 
-      var MARKER_SIZE_DEG = 1 / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR;
+      var MARKER_SIZE_DEG = 5 / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR;
 
       $scope.on_create_marker_click = function(event) {
         if (current_item == null) {
