@@ -115,7 +115,9 @@
         new StarHuntItem("G38.95-00.47", "starhunt_data/I_J2000_msd_header_crop.fits",
                          286.03264466695, 5.1534229243648),
         new StarHuntItem("G53.11+00.05", "starhunt_data/J_J2000_msd_header_crop.fits",
-                         292.32688673287, 17.931773261226)
+                         292.32688673287, 17.931773261226),
+        new StarHuntItem("G35.2-0.74N", "starhunt_data/SOMA/G35_SOFIA37um.fits",
+                         284.554377, 1.676893)
       ];
 
       // Thumbnail list UI logic
