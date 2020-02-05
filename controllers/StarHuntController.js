@@ -77,7 +77,13 @@
           c.set_id('starhuntcirc' + i);
           c.set_skyRelative(true);
           c.setCenter(0, -89); // yikes!
-          c.set_lineColor('#99ffd6');
+
+          if (i % 5 == 4) { // note, not `== 0`!
+            c.set_lineColor('#ffffff');
+          } else {
+            c.set_lineColor('#009933');
+          }
+
           wwt.wc.addAnnotation(c);
           circle_annotations.push(c);
         }
@@ -93,7 +99,7 @@
           if (i == 0) {
             r.set_lineColor('#ff6666');
           } else {
-            r.set_lineColor('#99ffd6');
+            r.set_lineColor('#009933');
           }
 
           wwt.wc.addAnnotation(r);
