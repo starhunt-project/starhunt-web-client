@@ -703,48 +703,54 @@
 
         <!-- StarHunt custom UI -- panes for layer manager / lefthand panel -->
         <div ng-switch="starhuntActiveLeftPanel">
-          <div ng-switch-when="starhunt-ui"
+          <div class="starhunt-panel"
+               ng-switch-when="starhunt-ui"
                ng-controller="StarHuntController">
-            <!-- Positioning readout -->
-            <div>
+            <h4><b>Crosshairs</b></h4>
+
+            <div class="leftpad">
               <span localize="Distance from target: "></span>
               <span>{{starhunt_cur_ctrdist}} arcsec</span>
             </div>
 
-            <div>
+            <div class="leftpad">
               <span localize="Angle from target: "></span>
               <span>{{starhunt_cur_ctrpa}} deg</span>
             </div>
 
-            <!-- Create Marker button -->
-            <div>
-              <a class="btn" ng-click="on_create_marker_click()">Create Marker</a>
+            <div class="leftpad toppad">
+              <a class="btn" ng-click="on_create_marker_click()">Create Marker Here</a>
             </div>
 
-            <!-- Circle size -->
-            <label id="starhunt-circlesize-label" for="starhunt-circlesize" localize="Circle Size: "></label>
-            <span>{{starhunt_cur_circlesize}} arcsec</span>
-            <input id="starhunt-circlesize"
-                   class="starhunt-slider"
-                   type="range"
-                   min="1" max="100" step="0.1" value="20"
-                   ng-model="starhunt_cur_circlesize"
-                   ng-change="on_circlesize_changed()" />
+            <h4><b>Bullseye</b></h4>
 
-            <!-- Recenter Circles -->
-            <div>
-              <a class="btn" ng-click="on_recenter_circles_click()">Recenter Circles</a>
+            <div class="leftpad">
+              <label id="starhunt-circlesize-label" for="starhunt-circlesize" localize="Circle spacing: "></label>
+              <span>{{starhunt_cur_circlesize}} arcsec</span>
+              <input id="starhunt-circlesize"
+                     class="starhunt-slider"
+                     type="range"
+                     min="1" max="100" step="0.1" value="20"
+                     ng-model="starhunt_cur_circlesize"
+                     ng-change="on_circlesize_changed()" />
             </div>
 
-            <!-- Opacity control -->
-            <label id="starhunt-opacity-label" for="starhunt-opacity" localize="Opacity: "></label>
-            <span>{{starhunt_cur_opacity}}%</span>
-            <input id="starhunt-opacity"
-                   class="starhunt-slider"
-                   type="range"
-                   min="0" max="100" step="1" value="100"
-                   ng-model="starhunt_cur_opacity"
-                   ng-change="on_opacity_changed()" />
+            <div class="leftpad toppad">
+              <a class="btn" ng-click="on_recenter_circles_click()">Recenter on Crosshairs</a>
+            </div>
+
+            <h4><b>Data</b></h4>
+
+            <div class="leftpad">
+              <label id="starhunt-opacity-label" for="starhunt-opacity" localize="Opacity: "></label>
+              <span>{{starhunt_cur_opacity}}%</span>
+              <input id="starhunt-opacity"
+                     class="starhunt-slider"
+                     type="range"
+                     min="0" max="100" step="1" value="100"
+                     ng-model="starhunt_cur_opacity"
+                     ng-change="on_opacity_changed()" />
+            </div>
           </div> <!-- when starhunt-ui -->
 
           <div ng-switch-when="layer-manager">
