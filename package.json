@@ -27,6 +27,8 @@
         "grunt-contrib-cssmin": "^3.0",
         "grunt-contrib-less": "^2.0",
         "grunt-contrib-uglify": "^4.0",
+        "grunt-gitinfo": "^0.1",
+        "grunt-template": "^1.0",
         "load-grunt-tasks": "^5.0"
     },
     "engines": {
