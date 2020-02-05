@@ -54,15 +54,8 @@
         }
       }
 
-      // Circle size control.
-      //
-      // Here's something fun. The WebGL renderer draws circles at the wrong
-      // size. The core code computes the rendered radius as the nominal one
-      // in degrees / 44, and you can bet that there is absolutely zero
-      // explanation about what the hell that number is. Wherever it comes
-      // from, it seems to be not quire right. Work around it with an
-      // empirical fudge factor:
-      var CIRCLE_SIZE_CORRECTION_FACTOR = 0.779;
+      // The circles/radials overlay
+
       var NUM_CIRCLES = 10;
       var NUM_RADIALS = 12;  // => 30 degrees each
 
@@ -84,7 +77,13 @@
           c.set_id('starhuntcirc' + i);
           c.set_skyRelative(true);
           c.setCenter(0, -89); // yikes!
-          c.set_lineColor('#99ffd6');
+
+          if (i % 5 == 4) { // note, not `== 0`!
+            c.set_lineColor('#ffffff');
+          } else {
+            c.set_lineColor('#009933');
+          }
+
           wwt.wc.addAnnotation(c);
           circle_annotations.push(c);
         }
@@ -100,7 +99,7 @@
           if (i == 0) {
             r.set_lineColor('#ff6666');
           } else {
-            r.set_lineColor('#99ffd6');
+            r.set_lineColor('#009933');
           }
 
           wwt.wc.addAnnotation(r);
@@ -119,7 +118,8 @@
         var i;
 
         for (i = 0; i < circle_annotations.length; i++) {
-          circle_annotations[i].set_radius((i + 1) * cur_size / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR);
+          var rad = arcsec_to_circle_radius((i + 1) * cur_size, current_item._source_dec_deg);
+          circle_annotations[i].set_radius(rad);
         }
 
         update_radials(current_item);
@@ -128,10 +128,16 @@
       function update_circles_for_new_target(item) {
         maybe_create_circles(item);
 
+        var cur_size = parseFloat($scope.starhunt_cur_circlesize);
         var i;
 
         for (i = 0; i < circle_annotations.length; i++) {
           circle_annotations[i].setCenter(item._source_ra_deg, item._source_dec_deg);
+
+          // We need to update the circle radii too due to the cos(dec) bug in
+          // the WebGL engine -- see comments in arcsec_to_circle_radius().
+          var rad = arcsec_to_circle_radius((i + 1) * cur_size, item._source_dec_deg);
+          circle_annotations[i].set_radius(rad);
         }
 
         update_radials(item);
@@ -221,7 +227,7 @@
 
       // Markers
 
-      var MARKER_SIZE_DEG = 5 / 3600 * CIRCLE_SIZE_CORRECTION_FACTOR;
+      var MARKER_SIZE_ARCSEC = 5;
 
       $scope.on_create_marker_click = function(event) {
         if (current_item == null) {
@@ -233,7 +239,8 @@
         m.set_skyRelative(true);
         m.set_fill(true);
         m.set_fillColor('#ffff99');
-        m.set_radius(MARKER_SIZE_DEG);
+        var rad = arcsec_to_circle_radius(MARKER_SIZE_ARCSEC, wwt.viewport.Dec);
+        m.set_radius(rad);
         m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec); // XXXX
         wwt.wc.addAnnotation(m);
         current_item._markers.push(m);
@@ -244,6 +251,16 @@
       $rootScope.$on('viewportchange', on_viewport_changed);
 
       // utilities
+
+      function arcsec_to_circle_radius(arcsec, dec_deg) {
+        // Here's something fun. The WebGL renderer draws circles at the wrong
+        // size. The core code computes the rendered radius as the nominal one
+        // in degrees / 44, and you can bet that there is absolutely zero
+        // explanation about what the hell that number is. But it apparently
+        // isn't quite right *and* needs a cos(dec) correction.
+
+        return (arcsec / 3600) * 0.769 / Math.cos(dec_deg * D2R);
+      }
 
       function float_to_text(v) {
         if (v > 999) {
