@@ -5,7 +5,7 @@
     "keywords": [
         "AAS WorldWide Telescope"
     ],
-    "homepage": "http://chalmers-starhunt.azurewebsites.net/",
+    "homepage": "http://starhunt.worldwidetelescope.org/",
     "author": "Peter Williams",
     "repository": {
         "type": "git",

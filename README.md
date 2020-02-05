@@ -13,9 +13,9 @@ This repository contains a forked version of the [AAS WorldWide Telescope]
 [Chalmers University]: https://www.chalmers.se/en/departments/see/research/Astronomy-and-Plasma-Physics/Pages/default.aspx
 [worldwidetelescope/wwt-web-client]: https://github.com/worldwidetelescope/wwt-web-client/
 
-The StarHunt web client currently runs at:
+The StarHunt web client runs at:
 
-### http://chalmersstarhunt.z13.web.core.windows.net/
+### http://starhunt.worldwidetelescope.org/
 
 
 ## Building and Testing
