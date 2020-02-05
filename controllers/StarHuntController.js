@@ -20,6 +20,7 @@
         current_item = item;
         update_opacity_for_new_target(item);
         update_circles_for_new_target(item);
+        $scope.on_context_changed();
       }
 
       // Utilities
@@ -246,9 +247,76 @@
         current_item._markers.push(m);
       }
 
+      // "High-resolution background" / contextual imagery
+
+      $scope.starhunt_context_names = [
+        'None',
+        '2MASS'
+      ];
+
+      $scope.starhunt_context_name = 'None';
+
+      var active_context_setname = null,
+          context_layers = {};
+
+      $scope.on_context_changed = function() {
+        if (current_item == null) {
+          return;
+        }
+
+        // Hide current imageset, if there is one.
+
+        if (active_context_setname != null) {
+          var layer = context_layers[active_context_setname];
+          layer.set_opacity(0);
+          active_context_setname = null;
+        }
+
+        // If setting to None, that's it!
+
+        if ($scope.starhunt_context_name == 'None') {
+          return;
+        }
+
+        // Create new layer for new active imageset if needed.
+
+        active_context_setname = 'StarHunt-Context-' + current_item.get_name() + '-' + $scope.starhunt_context_name;
+        var layer = context_layers[active_context_setname];
+
+        if (layer == null) {
+          var imageset = wwtlib.WWTControl.singleton.getImagesetByName(active_context_setname);
+
+          if (imageset == null) {
+            console.log('StarHunt context: no imageset for ' + active_context_setname);
+            active_context_setname = null;
+            return;
+          }
+
+          layer = wwtlib.LayerManager.addImageSetLayer(imageset, active_context_setname);
+          context_layers[active_context_setname] = layer;
+
+          // Semi-hack, duplication of LayerManager._top_Click -- make sure
+          // this layer is below the FITS data.
+          var llist = wwtlib.LayerManager.get_allMaps()[layer.get_referenceFrame()].layers;
+          var index = llist.indexOf(layer);
+          llist.splice(index, 1);
+          llist.splice(0, 0, layer);
+          wwtlib.LayerManager._version++;
+          wwtlib.LayerManager.loadTree();
+        }
+
+        // Show it.
+
+        layer.set_opacity(1);
+      };
+
       // Final initialization
 
       $rootScope.$on('viewportchange', on_viewport_changed);
+
+      wwt.wc.add_ready(function () {
+        wwt.wc.loadImageCollection('starhunt_data/context/2MASS/2MASS.wtml');
+      });
 
       // utilities
 
