@@ -15,13 +15,25 @@ module.exports = function (grunt) {
       '* WorldWide Telescope Web Client\n' +
       '* Copyright 2014-2020 .NET Foundation\n' +
       '* Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+      '* Git hash <%= gitinfo.local.branch.current.SHA %>\n' +
       '**/\n',
+
+    // Triger the loading of the Git version info
+    gitinfo: {},
 
     // Task configuration.
 
     concat: {
       options: {
-        banner: '<%= banner %>'
+        banner: '<%= banner %>',
+
+        process: function(src, filepath) {
+          if (filepath == 'app.js') {
+            return grunt.template.process(src);
+          } else {
+            return src;
+          }
+        },
       },
       webclient: {
         src: [
@@ -81,7 +93,8 @@ module.exports = function (grunt) {
           'misc/move.js',
           'misc/util.js'
         ],
-        dest: 'dist/wwtwebclient.js'
+        dest: 'dist/wwtwebclient.js',
+        nonull: true,
       },
     },
 
@@ -174,7 +187,7 @@ module.exports = function (grunt) {
 
   require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
-  grunt.registerTask('dist-js', ['concat:webclient', 'uglify:webclient']);
+  grunt.registerTask('dist-js', ['gitinfo', 'concat:webclient', 'uglify:webclient']);
   grunt.registerTask('dist-css', ['less:compileCore', 'autoprefixer:core', 'cssmin:minifyCore']);
   grunt.registerTask('dist-all', ['dist-js', 'dist-css', 'copy:dist']);
 };
