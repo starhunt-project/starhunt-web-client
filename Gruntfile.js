@@ -28,13 +28,14 @@ module.exports = function (grunt) {
         banner: '<%= banner %>',
 
         process: function(src, filepath) {
-          if (filepath == 'app.js') {
+          if (filepath == 'app.js' || filepath == 'index.html') {
             return grunt.template.process(src);
           } else {
             return src;
           }
         },
       },
+
       webclient: {
         src: [
           'ext/intro.js',
@@ -95,7 +96,7 @@ module.exports = function (grunt) {
         ],
         dest: 'dist/wwtwebclient.js',
         nonull: true,
-      },
+      }
     },
 
     uglify: {
@@ -156,6 +157,22 @@ module.exports = function (grunt) {
       }
     },
 
+    template: {
+      options: {
+        data: function() {
+          return {
+            shortSHA: grunt.config.get('gitinfo.local.branch.current.shortSHA')
+          }
+        }
+      },
+
+      indexhtml: {
+        files: {
+          'dist/index.html': 'index.html'
+        }
+      }
+    },
+
     copy: {
       dist: {
         files: [
@@ -165,8 +182,7 @@ module.exports = function (grunt) {
               'css/introjs.css',
               'css/angular-motion.css',
               'css/skin.min.css',
-              'favicon.ico',
-              'index.html'
+              'favicon.ico'
             ],
             dest: 'dist/'
           }, {
@@ -189,5 +205,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dist-js', ['gitinfo', 'concat:webclient', 'uglify:webclient']);
   grunt.registerTask('dist-css', ['less:compileCore', 'autoprefixer:core', 'cssmin:minifyCore']);
-  grunt.registerTask('dist-all', ['dist-js', 'dist-css', 'copy:dist']);
+  grunt.registerTask('dist-all', ['dist-js', 'dist-css', 'template:indexhtml', 'copy:dist']);
 };
