@@ -227,7 +227,7 @@
 
       // Markers
 
-      var MARKER_SIZE_ARCSEC = 5;
+      var MARKER_SIZE_ARCSEC = 3;
 
       $scope.on_create_marker_click = function(event) {
         if (current_item == null) {
