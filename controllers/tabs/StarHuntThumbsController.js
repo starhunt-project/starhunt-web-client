@@ -109,7 +109,9 @@
         return null;
       }
 
-      // Defining the set of targets
+      // Defining the set of targets.
+      //
+      // NOTE: keep this list synchronized with `download-contextual-imagery.py`!
 
       var starhunt_items = [
         //IRDC sources

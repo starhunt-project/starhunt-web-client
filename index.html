@@ -751,6 +751,17 @@
                      ng-model="starhunt_cur_opacity"
                      ng-change="on_opacity_changed()" />
             </div>
+
+            <h4><b>High-Resolution Background</b></h4>
+
+            <div class="leftpad toppad">
+              <select id="starhunt-context"
+                      ng-init="starhunt_context_name = 'None'"
+                      ng-model="starhunt_context_name"
+                      ng-options="n for n in starhunt_context_names"
+                      ng-change="on_context_changed()">
+              </select>
+            </div>
           </div> <!-- when starhunt-ui -->
 
           <div ng-switch-when="layer-manager">
