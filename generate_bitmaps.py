@@ -47,7 +47,7 @@ def main():
         all_surveys.add(survey)
 
     if '2MASS-J' in all_surveys:
-        all_surveys = ['2MASS-J', '2MASS-H', '2MASS-K']
+        all_surveys = ['2MASS-K', '2MASS-H', '2MASS-J']
         merge_name = '2MASS'
     else:
         all_surveys = sorted(all_surveys)  # default
