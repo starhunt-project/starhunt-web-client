@@ -50,7 +50,7 @@ def main():
     ap.add_argument(
         '--size',
         type = float,
-        default = 200.,
+        default = 1000.,
         help = 'The size of the images to fetch, in arcseconds.'
     )
     ap.add_argument(
