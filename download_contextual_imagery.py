@@ -77,6 +77,9 @@ def main():
                 projection = 'Tan',
                 width = settings.size * u.arcsec,
                 height = settings.size * u.arcsec,
+                #pixels = 300 # which produces JPEG images of 40 KB
+                #pixels = 1000 # which produces JPEG images of 300 KB
+                pixels = 2000 #which produces JPEG images of 300 KB to 1.2 MB depending on the richness of the region
             )
 
             if len(hdulists) == 0:
