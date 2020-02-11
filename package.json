@@ -29,7 +29,8 @@
         "grunt-contrib-uglify": "^4.0",
         "grunt-gitinfo": "^0.1",
         "grunt-template": "^1.0",
-        "load-grunt-tasks": "^5.0"
+        "load-grunt-tasks": "^5.0",
+        "tslib": "^1.10.0"
     },
     "engines": {
         "node": "~0.10.1"
