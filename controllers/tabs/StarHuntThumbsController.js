@@ -39,11 +39,11 @@
 
       StarHuntItem.prototype.get_thumbnailUrl = function () {
         // This is a nice generic stars-y image
-        if (this._Source_Type == 'IRCD') {
+        if (this._Source_Type == 'IRDC') {
             return '//www.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=400514625';
         }
         else {
-              return 'starhunt_data/sagittariusA.jpg'; //trying to change the thumbnail for SOMA sources
+              return 'starhunt_data/SOMA_thumbnail_96x45.png'; //trying to change the thumbnail for SOMA sources
         }
       }
 
