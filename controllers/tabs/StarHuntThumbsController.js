@@ -153,28 +153,28 @@
                          {}, 'IRDC'),
         //new set of IRDC sources
         new StarHuntItem("G023.60-0.009", "starhunt_data/IRDC/G023.60-0.009.fits",
-                         23.60693, -0.00911,
+                         278.581, -8.31932,
                          {}, 'IRDC'),
         new StarHuntItem("G024.64+00.16", "starhunt_data/IRDC/G024.64+00.16.fits",
-                         24.64585, 0.163026,
+                         278.913, -7.29610,
                          {}, 'IRDC'),
         new StarHuntItem("G024.94-00.15", "starhunt_data/IRDC/G024.94-00.15.fits",
-                         24.94097, -0.15301,
+                         279.342, -7.16906,
                          {}, 'IRDC'),
         new StarHuntItem("G030.14-00.07", "starhunt_data/IRDC/G030.14-00.07.fits",
-                         30.13851, -0.06971,
+                         281.647, -2.51808,
                          {}, 'IRDC'),
         new StarHuntItem("G031.98+00.06", "starhunt_data/IRDC/G031.98+00.06.fits",
-                         31.97961, 0.065254,
+                         282.367, -0.81795,
                          {}, 'IRDC'),
         new StarHuntItem("G035.60-00.25", "starhunt_data/IRDC/G035.60-00.25.fits",
-                         35.60255, -0.25256,
+                         284.303, 2.26117,
                          {}, 'IRDC'),
         new StarHuntItem("G023.39-00.11", "starhunt_data/IRDC/G023.39-00.11.fits",
-                         23.3965, -0.113126,
+                         278.581, -8.53002,
                          {}, 'IRDC'),
         new StarHuntItem("G025.15-0.028", "starhunt_data/IRDC/G025.15-0.028.fits",
-                         25.1551, -0.283639,
+                         279.550, -7.04726,
                          {}, 'IRDC'),
         //SOMA sources
         new StarHuntItem("AFGL4029", "starhunt_data/SOMA/AFGL4029_SOFIA37um.fits",
@@ -210,18 +210,34 @@
         new StarHuntItem("G49.27", "starhunt_data/SOMA/G49.27_SOFIA37uma.fits",
                          290.777863, 14.33655,
                          {stretch: STRETCH_LOG, vmin: -29, vmax: 1140}, 'SOMA'),
-        new StarHuntItem("IRAS07299", "starhunt_data/SOMA/IRAS07299_SOFIA37um.fits",
-                         113.04036, -16.97001,
-                         {stretch: STRETCH_LOG, vmin: -0.0004, vmax: 0.16}, 'SOMA'), // not very exciting source (to be changed!)
+        //new StarHuntItem("IRAS07299", "starhunt_data/SOMA/IRAS07299_SOFIA37um.fits",
+        //                 113.04036, -16.97001,
+        //                 {stretch: STRETCH_LOG, vmin: -0.0004, vmax: 0.16}, 'SOMA'), // not very exciting source (to be changed!)
         new StarHuntItem("IRAS16562", "starhunt_data/SOMA/IRAS16562_SOFIA37uma.fits",
                          254.92355, -40.06229,
                          {stretch: STRETCH_LOG, vmin: -48, vmax: 29600}, 'SOMA'),
-        new StarHuntItem("IRAS20126", "starhunt_data/SOMA/IRAS20126_SOFIA37um.fits",
-                         303.60879, 41.22569,
-                         {stretch: STRETCH_LOG, vmin: -0.0002, vmax: 0.063}, 'SOMA'), //not very exciting source (to be changed!)
+        //new StarHuntItem("IRAS20126", "starhunt_data/SOMA/IRAS20126_SOFIA37um.fits",
+        //                 303.60879, 41.22569,
+        //                 {stretch: STRETCH_LOG, vmin: -0.0002, vmax: 0.063}, 'SOMA'), //not very exciting source (to be changed!)
         new StarHuntItem("NGC7538", "starhunt_data/SOMA/NGC7538_SOFIA37um.fits",
                          348.50722, 61.45551,
-                         {stretch: STRETCH_LOG, vmin: -0.00006, vmax: 0.048}, 'SOMA')
+                         {stretch: STRETCH_LOG, vmin: -0.00006, vmax: 0.048}, 'SOMA'),
+        //new set of SOMA sources
+        new StarHuntItem("G25.40", "starhunt_data/SOMA/G25.40_SOFIA_37.1um_cal_ast.fits",
+                         279.5329235, -6.7666010,
+                         {stretch: STRETCH_LOG, vmin: -0.01, vmax: 1.0}, 'SOMA'), //substitute IRAS07299
+        new StarHuntItem("G33.91", "starhunt_data/SOMA/G33.91_SOFIA_37.1um_cal_ast.fits",
+                         283.2098660, 0.9240782,
+                         {stretch: STRETCH_LOG, vmin: -0.02, vmax: 1.0}, 'SOMA'), //substitute IRAS20126
+        new StarHuntItem("G30.76", "starhunt_data/SOMA/G30.76_SOFIA_37.1um_cal_ast.fits",
+                         281.6854982, -1.8421753,
+                         {stretch: STRETCH_LOG, vmin: -0.03, vmax: 0.4}, 'SOMA'),
+        new StarHuntItem("G58.77", "starhunt_data/SOMA/G58.77_SOFIA_37.1um_cal_ast.fits",
+                         294.7025652, 23.1435937,
+                         {stretch: STRETCH_LOG, vmin: -0.01, vmax: 0.3}, 'SOMA'),
+        new StarHuntItem("IRAS20343", "starhunt_data/SOMA/IRAS20343_SOFIA_37.1um_cal_ast.fits",
+                         309.0296629, 41.6639130,
+                         {stretch: STRETCH_LOG, vmin: -0.01, vmax: 1.0}, 'SOMA')
       ];
 
       // Thumbnail list UI logic
