@@ -152,7 +152,7 @@
                          292.32688673287, 17.931773261226,
                          {}, 'IRDC'),
         //new set of IRDC sources
-        new StarHuntItem("G023.60-0.009", "starhunt_data/IRDC/G023.60-0.009.fits",
+        new StarHuntItem("G023.60-00.09", "starhunt_data/IRDC/G023.60-0.009.fits",
                          278.581, -8.31932,
                          {}, 'IRDC'),
         new StarHuntItem("G024.64+00.16", "starhunt_data/IRDC/G024.64+00.16.fits",
@@ -173,7 +173,7 @@
         new StarHuntItem("G023.39-00.11", "starhunt_data/IRDC/G023.39-00.11.fits",
                          278.581, -8.53002,
                          {}, 'IRDC'),
-        new StarHuntItem("G025.15-0.028", "starhunt_data/IRDC/G025.15-0.028.fits",
+        new StarHuntItem("G025.15-00.28", "starhunt_data/IRDC/G025.15-00.28.fits",
                          279.550, -7.04726,
                          {}, 'IRDC'),
         //SOMA sources
