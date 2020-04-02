@@ -3,8 +3,10 @@
   [
     '$scope',
     '$rootScope',
+    '$modal',
+    'Util',
 
-    function ($scope, $rootScope) {
+    function ($scope, $rootScope, $modal, util) {
       // See controllers/tabs/StarHuntThumbsController.js for the definition
       // of the Item type.
 
@@ -230,7 +232,7 @@
 
       var MARKER_SIZE_ARCSEC = 3;
 
-      $scope.on_create_marker_click = function(event) {
+      $scope.on_create_marker_click = function(is_coord) {
         if (current_item == null) {
           return;
         }
@@ -242,10 +244,57 @@
         m.set_fillColor('#ffff99');
         var rad = arcsec_to_circle_radius(MARKER_SIZE_ARCSEC, wwt.viewport.Dec);
         m.set_radius(rad);
-        m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec); // XXXX
+        m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec);
         wwt.wc.addAnnotation(m);
+
+        m.starhunt_is_coord_marker = is_coord;
+        m.starhunt_ra_hours = wwt.viewport.RA; // can't get these back after creation!
+        m.starhunt_dec_deg = wwt.viewport.Dec;
         current_item._markers.push(m);
       }
+
+      $scope.on_report_coordinates = function() {
+        // Figure out the coordinate text to show.
+
+        var text = "";
+
+        if (current_item != null) {
+          for (var i = 0; i < current_item._markers.length; i++) {
+            var m = current_item._markers[i];
+
+            if (m.starhunt_is_coord_marker) {
+              text += util.formatHms(m.starhunt_ra_hours, false, false, false);
+              text += " ";
+              text += util.formatHms(m.starhunt_dec_deg, false, true, false);
+              text += "\n";
+            }
+          }
+        }
+
+        if (text == "") {
+          text = "(no active coordinate markers)";
+        }
+
+        // Create a modal popup showing the information.
+
+        var scope = $rootScope.$new();
+        scope.coordinate_text = text;
+
+        scope.copy_to_clipboard = function() {
+          var area = $('.starhunt-marker-report-text');
+          area.select();
+          document.execCommand('copy');
+        };
+
+        $modal({
+          scope: scope,
+          templateUrl: 'views/modals/centered-modal-template.html',
+          contentTemplate: 'views/modals/starhunt-marker-report.html',
+          show: true,
+          placement: 'center',
+          backdrop: false
+        });
+      };
 
       // "High-resolution background" / contextual imagery
 
