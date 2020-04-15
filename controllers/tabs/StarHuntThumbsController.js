@@ -139,9 +139,6 @@
         new StarHuntItem("G34.43+00.24", "starhunt_data/IRDC/F_J2000_msd_header_crop.fits",
                          284.74722220156, 3.0861080163207,
                          {}, 'IRDC'),
-        new StarHuntItem("G34.77-00.55", "starhunt_data/IRDC/G_J2000_msd_header_crop.fits",
-                         284.20198245893, 1.3556447623029,
-                         {}, 'IRDC'),
         new StarHuntItem("G35.39-00.33", "starhunt_data/IRDC/H_J2000_msd_header_crop.fits",
                          284.28179957343, 2.1562146713294,
                          {}, 'IRDC'),
@@ -176,6 +173,9 @@
         new StarHuntItem("G025.15-00.28", "starhunt_data/IRDC/G025.15-00.28.fits",
                          279.550, -7.04726,
                          {}, 'IRDC'),
+        new StarHuntItem("G34.77-00.55", "starhunt_data/IRDC/G_J2000_msd_header_crop.fits", //example cloud in the booklet
+                         284.20198245893, 1.3556447623029, //move to the end to avoid teams using it
+                         {}, 'IRDC'), //for large classes, it would be used
         //SOMA sources
         new StarHuntItem("AFGL4029", "starhunt_data/SOMA/AFGL4029_SOFIA37um.fits",
                          45.3844857, 60.4870907,
@@ -195,9 +195,6 @@
         new StarHuntItem("G339.88", "starhunt_data/SOMA/G339.88_SOFIA37uma.fits",
                          253.01985, -46.14281,
                          {stretch: STRETCH_LOG, vmin: -30, vmax: 19000}),
-        new StarHuntItem("G35.2-0.74N", "starhunt_data/SOMA/G35_SOFIA37um.fits",
-                         284.554377, 1.676893,
-                         {stretch: STRETCH_LOG, vmin: -0.0003, vmax: 0.01}, 'SOMA'),
         new StarHuntItem("G35.58", "starhunt_data/SOMA/G35.58_SOFIA37uma.fits",
                          284.094112, 2.341021,
                          {stretch: STRETCH_LOG, vmin: -29, vmax: 10700}, 'SOMA'),
@@ -237,7 +234,10 @@
                          {stretch: STRETCH_LOG, vmin: -0.01, vmax: 0.3}, 'SOMA'),
         new StarHuntItem("IRAS20343", "starhunt_data/SOMA/IRAS20343_SOFIA_37.1um_cal_ast.fits",
                          309.0296629, 41.6639130,
-                         {stretch: STRETCH_LOG, vmin: -0.01, vmax: 1.0}, 'SOMA')
+                         {stretch: STRETCH_LOG, vmin: -0.01, vmax: 1.0}, 'SOMA'),
+        new StarHuntItem("G35.2-0.74N", "starhunt_data/SOMA/G35_SOFIA37um.fits", //example sOMA in the booklet
+                         284.554377, 1.676893, //move to the end to avoid teams using it
+                         {stretch: STRETCH_LOG, vmin: -0.0003, vmax: 0.01}, 'SOMA') //for large classes, it would be used
       ];
 
       // Thumbnail list UI logic
