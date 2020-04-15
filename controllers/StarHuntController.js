@@ -241,13 +241,18 @@
         m.set_id('starhunt_target' + current_item.get_name() + current_item._markers.length);
         m.set_skyRelative(true);
         m.set_fill(true);
-        m.set_fillColor('#ffff99');
+        //m.set_fillColor('#ffff99');
         var rad = arcsec_to_circle_radius(MARKER_SIZE_ARCSEC, wwt.viewport.Dec);
         m.set_radius(rad);
         m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec);
         wwt.wc.addAnnotation(m);
 
         m.starhunt_is_coord_marker = is_coord;
+        if (m.starhunt_is_coord_marker) { // adding these 4 line to select the colour of the marker
+          m.set_fillColor('#ff0000'); // if it is a coordinate marker, print it red
+        } else { //
+          m.set_fillColor('#ffff99'); // if it is a non-coordinate marker, print it yellow
+        }
         m.starhunt_ra_hours = wwt.viewport.RA; // can't get these back after creation!
         m.starhunt_dec_deg = wwt.viewport.Dec;
         current_item._markers.push(m);
