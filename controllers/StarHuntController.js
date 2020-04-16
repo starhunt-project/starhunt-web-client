@@ -269,7 +269,7 @@
 
             if (m.starhunt_is_coord_marker) {
               text += util.formatHms(m.starhunt_ra_hours, false, false, false);
-              text += " ";
+              text += "\t";
               text += util.formatHms(m.starhunt_dec_deg, false, true, false);
               text += "\n";
             }
