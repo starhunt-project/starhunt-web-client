@@ -248,6 +248,7 @@
         wwt.wc.addAnnotation(m);
 
         m.starhunt_is_coord_marker = is_coord;
+        m.report_marker = is_coord;
         if (m.starhunt_is_coord_marker) { // adding these 4 line to select the colour of the marker
           m.set_fillColor('#ff0000'); // if it is a coordinate marker, print it red
         } else { //
@@ -267,7 +268,7 @@
           for (var i = 0; i < current_item._markers.length; i++) {
             var m = current_item._markers[i];
 
-            if (m.starhunt_is_coord_marker) {
+            if (m.starhunt_is_coord_marker && m.report_marker) {
               text += util.formatHms(m.starhunt_ra_hours, false, false, false);
               text += "\t";
               text += util.formatHms(m.starhunt_dec_deg, false, true, false);
@@ -284,12 +285,22 @@
 
         var scope = $rootScope.$new();
         scope.coordinate_text = text;
+        scope.item = current_item;
 
         scope.copy_to_clipboard = function() {
           var area = $('.starhunt-marker-report-text');
           area.select();
           document.execCommand('copy');
         };
+
+        scope.done_with_these = function() {
+          for (var i = 0; i < scope.item._markers.length; i++) {
+            var m = scope.item._markers[i];
+            m.report_marker = false;
+          }
+
+          scope.coordinate_text = "(no active coordinate markers)";
+        }
 
         $modal({
           scope: scope,
