@@ -29,7 +29,8 @@
 
       var D2R = Math.PI / 180.,
           R2D = 180. / Math.PI,
-          D2H = 1. / 15;
+          D2H = 1. / 15,
+          H2R = Math.PI / 12;
 
       // Opacity control
 
@@ -272,9 +273,18 @@
             var m = current_item._markers[i];
 
             if (m.starhunt_is_coord_marker && m.report_marker) {
+              var pa_rad = sphbear(
+                current_item._source_dec_deg * D2R,
+                current_item._source_ra_deg * D2R,
+                m.starhunt_dec_deg * D2R,
+                m.starhunt_ra_hours * H2R
+              );
+
               text += util.formatHms(m.starhunt_ra_hours, false, false, false);
               text += "\t";
               text += util.formatHms(m.starhunt_dec_deg, false, true, false);
+              text += "\t";
+              text += float_to_text(pa_rad * R2D);
               text += "\n";
             }
           }
