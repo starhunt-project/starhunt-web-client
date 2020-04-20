@@ -231,6 +231,9 @@
 
       // Markers
 
+      var COORDINATE_MARKER_COLOR = '#ff0000',
+          REGULAR_MARKER_COLOR = '#ffff99';
+
       var MARKER_SIZES_ARCSEC = {
         'IRDC': 3,
         'SOMA': 1,
@@ -252,11 +255,10 @@
         wwt.wc.addAnnotation(m);
 
         m.starhunt_is_coord_marker = is_coord;
-        m.report_marker = is_coord;
-        if (m.starhunt_is_coord_marker) { // adding these 4 line to select the colour of the marker
-          m.set_fillColor('#ff0000'); // if it is a coordinate marker, print it red
-        } else { //
-          m.set_fillColor('#ffff99'); // if it is a non-coordinate marker, print it yellow
+        if (m.starhunt_is_coord_marker) {
+          m.set_fillColor(COORDINATE_MARKER_COLOR);
+        } else {
+          m.set_fillColor(REGULAR_MARKER_COLOR);
         }
         m.starhunt_ra_hours = wwt.viewport.RA; // can't get these back after creation!
         m.starhunt_dec_deg = wwt.viewport.Dec;
@@ -272,7 +274,7 @@
           for (var i = 0; i < current_item._markers.length; i++) {
             var m = current_item._markers[i];
 
-            if (m.starhunt_is_coord_marker && m.report_marker) {
+            if (m.starhunt_is_coord_marker) {
               var pa_rad = sphbear(
                 current_item._source_dec_deg * D2R,
                 current_item._source_ra_deg * D2R,
@@ -309,7 +311,11 @@
         scope.done_with_these = function() {
           for (var i = 0; i < scope.item._markers.length; i++) {
             var m = scope.item._markers[i];
-            m.report_marker = false;
+
+            if (m.starhunt_is_coord_marker) {
+              m.starhunt_is_coord_marker = false;
+              m.set_fillColor(REGULAR_MARKER_COLOR);
+            }
           }
 
           scope.coordinate_text = "(no active coordinate markers)";
