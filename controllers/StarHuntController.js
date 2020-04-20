@@ -323,6 +323,7 @@
       ];
 
       $scope.starhunt_context_name = 'None';
+      $scope.starhunt_cur_bg_opacity = 100;  // sync with index.html
 
       var active_context_setname = null,
           context_layers = {};
@@ -375,8 +376,23 @@
 
         // Show it.
 
+        $scope.starhunt_cur_bg_opacity = 100;
         layer.set_opacity(1);
       };
+
+      $scope.on_bg_opacity_changed = function() {
+        if (active_context_setname == null) {
+          return;
+        }
+
+        var layer = context_layers[active_context_setname];
+
+        if (!layer) {
+          return;
+        }
+
+        layer.set_opacity(0.01 * $scope.starhunt_cur_bg_opacity);
+      }
 
       // Final initialization
 
