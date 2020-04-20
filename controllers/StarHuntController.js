@@ -230,7 +230,10 @@
 
       // Markers
 
-      var MARKER_SIZE_ARCSEC = 3;
+      var MARKER_SIZES_ARCSEC = {
+        'IRDC': 3,
+        'SOMA': 1,
+      };
 
       $scope.on_create_marker_click = function(is_coord) {
         if (current_item == null) {
@@ -242,7 +245,7 @@
         m.set_skyRelative(true);
         m.set_fill(true);
         //m.set_fillColor('#ffff99');
-        var rad = arcsec_to_circle_radius(MARKER_SIZE_ARCSEC, wwt.viewport.Dec);
+        var rad = arcsec_to_circle_radius(MARKER_SIZES_ARCSEC[current_item._Source_Type], wwt.viewport.Dec);
         m.set_radius(rad);
         m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec);
         wwt.wc.addAnnotation(m);
