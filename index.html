@@ -769,6 +769,17 @@
                       ng-options="n for n in starhunt_context_names"
                       ng-change="on_context_changed()">
               </select>
+
+              <div class="toppad" ng-show="starhunt_context_name != 'None'">
+                <label id="starhunt-bg-opacity-label" for="starhunt-bg-opacity" localize="Opacity: "></label>
+                <span>{{starhunt_cur_bg_opacity}}%</span>
+                <input id="starhunt-bg-opacity"
+                       class="starhunt-slider"
+                       type="range"
+                       min="0" max="100" step="1" value="100"
+                       ng-model="starhunt_cur_bg_opacity"
+                       ng-change="on_bg_opacity_changed()" />
+              </div>
             </div>
           </div> <!-- when starhunt-ui -->
 

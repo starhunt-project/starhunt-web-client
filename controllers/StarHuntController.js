@@ -29,7 +29,8 @@
 
       var D2R = Math.PI / 180.,
           R2D = 180. / Math.PI,
-          D2H = 1. / 15;
+          D2H = 1. / 15,
+          H2R = Math.PI / 12;
 
       // Opacity control
 
@@ -230,7 +231,13 @@
 
       // Markers
 
-      var MARKER_SIZE_ARCSEC = 3;
+      var COORDINATE_MARKER_COLOR = '#ff0000',
+          REGULAR_MARKER_COLOR = '#ffff99';
+
+      var MARKER_SIZES_ARCSEC = {
+        'IRDC': 3,
+        'SOMA': 1,
+      };
 
       $scope.on_create_marker_click = function(is_coord) {
         if (current_item == null) {
@@ -242,16 +249,16 @@
         m.set_skyRelative(true);
         m.set_fill(true);
         //m.set_fillColor('#ffff99');
-        var rad = arcsec_to_circle_radius(MARKER_SIZE_ARCSEC, wwt.viewport.Dec);
+        var rad = arcsec_to_circle_radius(MARKER_SIZES_ARCSEC[current_item._Source_Type], wwt.viewport.Dec);
         m.set_radius(rad);
         m.setCenter(wwt.viewport.RA * 15, wwt.viewport.Dec);
         wwt.wc.addAnnotation(m);
 
         m.starhunt_is_coord_marker = is_coord;
-        if (m.starhunt_is_coord_marker) { // adding these 4 line to select the colour of the marker
-          m.set_fillColor('#ff0000'); // if it is a coordinate marker, print it red
-        } else { //
-          m.set_fillColor('#ffff99'); // if it is a non-coordinate marker, print it yellow
+        if (m.starhunt_is_coord_marker) {
+          m.set_fillColor(COORDINATE_MARKER_COLOR);
+        } else {
+          m.set_fillColor(REGULAR_MARKER_COLOR);
         }
         m.starhunt_ra_hours = wwt.viewport.RA; // can't get these back after creation!
         m.starhunt_dec_deg = wwt.viewport.Dec;
@@ -268,9 +275,18 @@
             var m = current_item._markers[i];
 
             if (m.starhunt_is_coord_marker) {
+              var pa_rad = sphbear(
+                current_item._source_dec_deg * D2R,
+                current_item._source_ra_deg * D2R,
+                m.starhunt_dec_deg * D2R,
+                m.starhunt_ra_hours * H2R
+              );
+
               text += util.formatHms(m.starhunt_ra_hours, false, false, false);
               text += "\t";
               text += util.formatHms(m.starhunt_dec_deg, false, true, false);
+              text += "\t";
+              text += float_to_text(pa_rad * R2D);
               text += "\n";
             }
           }
@@ -284,12 +300,26 @@
 
         var scope = $rootScope.$new();
         scope.coordinate_text = text;
+        scope.item = current_item;
 
         scope.copy_to_clipboard = function() {
           var area = $('.starhunt-marker-report-text');
           area.select();
           document.execCommand('copy');
         };
+
+        scope.done_with_these = function() {
+          for (var i = 0; i < scope.item._markers.length; i++) {
+            var m = scope.item._markers[i];
+
+            if (m.starhunt_is_coord_marker) {
+              m.starhunt_is_coord_marker = false;
+              m.set_fillColor(REGULAR_MARKER_COLOR);
+            }
+          }
+
+          scope.coordinate_text = "(no active coordinate markers)";
+        }
 
         $modal({
           scope: scope,
@@ -309,6 +339,7 @@
       ];
 
       $scope.starhunt_context_name = 'None';
+      $scope.starhunt_cur_bg_opacity = 100;  // sync with index.html
 
       var active_context_setname = null,
           context_layers = {};
@@ -361,8 +392,23 @@
 
         // Show it.
 
+        $scope.starhunt_cur_bg_opacity = 100;
         layer.set_opacity(1);
       };
+
+      $scope.on_bg_opacity_changed = function() {
+        if (active_context_setname == null) {
+          return;
+        }
+
+        var layer = context_layers[active_context_setname];
+
+        if (!layer) {
+          return;
+        }
+
+        layer.set_opacity(0.01 * $scope.starhunt_cur_bg_opacity);
+      }
 
       // Final initialization
 
