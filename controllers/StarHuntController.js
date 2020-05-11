@@ -285,8 +285,8 @@
               text += util.formatHms(m.starhunt_ra_hours, false, false, false);
               text += "\t";
               text += util.formatHms(m.starhunt_dec_deg, false, true, false);
-              text += "\t";
-              text += float_to_text(pa_rad * R2D);
+              //text += "\t";
+              //text += float_to_text(pa_rad * R2D);
               text += "\n";
             }
           }
