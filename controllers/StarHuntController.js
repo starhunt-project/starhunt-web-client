@@ -282,9 +282,9 @@
                 m.starhunt_ra_hours * H2R
               );
 
-              text += util.formatHms(m.starhunt_ra_hours, false, false, false);
+              text += Number((m.starhunt_ra_hours*15).toPrecision(10));
               text += "\t";
-              text += util.formatHms(m.starhunt_dec_deg, false, true, false);
+              text += Number((m.starhunt_dec_deg).toPrecision(10));
               //text += "\t";
               //text += float_to_text(pa_rad * R2D);
               text += "\n";
