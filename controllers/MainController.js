@@ -313,53 +313,6 @@ wwt.controllers.controller(
               button: 'rbnStarHunt',
               menu: {}
             }, {
-              label: 'Explore',
-              button: "rbnExplore",
-              mobileLabel: 'Explore Collections',
-              mobileAction: function () {
-                $('#exploreModalLink').click();
-              },
-              menu: {
-                Open: {
-                  'Tour...': [$scope.openItem, 'tour'],
-                  'Collection...': [$scope.openItem, 'collection'],
-                  'Image...': [$scope.openItem, 'image'],
-                  'FITS Image...': [$scope.openItem, 'FITS image']
-                },
-                sep1: null,
-                'Tour WWT Features': [$scope.tourFeatures],
-                'Show Finder (right click)': [$scope.showFinderScope],
-                'AAS WorldWide Telescope Home': [util.nav, 'http://worldwidetelescope.org/home']
-              }
-            }, {
-              label: 'Guided Tours',
-              button: 'rbnTours',
-              menu: {
-                'Create a New Tour...': [$scope.createNewTour],
-              }
-            }, {
-              label: 'Search',
-              button: 'rbnSearch',
-              menu: {
-                'Search Now': [function () {
-                  $timeout(function () {
-                    changePanel('Search');
-                  });
-                }],
-                'VO Cone Search': [function () {
-                  var modalScope = $rootScope.$new();
-                  modalScope.customClass = 'vo-cone-modal';
-                  var coneSearchModal = $modal({
-                    scope: modalScope,
-                    templateUrl: 'views/modals/centered-modal-template.html',
-                    contentTemplate: 'views/modals/vo-cone-search.html',
-                    show: true,
-                    placement: 'center',
-                    backdrop: false
-                  });
-                }]
-              }
-            }, {
               label: 'View',
               button: 'rbnView',
               menu: {
