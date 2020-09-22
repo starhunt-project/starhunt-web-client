@@ -180,6 +180,8 @@ wwt.controllers.controller(
         util.resetCamera(true);
 
         $(window).on('resize', function () {
+          wwtlib.WWTControl.singleton._crossHairs = null;
+
           wwt.resize();
           $scope.$applyAsync(function () {
             $scope.smallVP = wwt.smallVP;
@@ -193,6 +195,8 @@ wwt.controllers.controller(
         $rootScope.$on('hashChange', hashChange);
 
         $timeout(function () {
+          wwtlib.WWTControl.singleton._crossHairs = null;
+
           var hash = hashManager.getHashObject();
           $rootScope.$broadcast('hashChange', hash);
           $scope.smallVP = wwt.smallVP;
