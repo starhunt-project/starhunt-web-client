@@ -456,53 +456,15 @@ wwt.controllers.controller(
         return finderActive;
       }
 
-      $scope.$on('showFinderScope', function () {
-        $scope.showFinderScope();
-      });
-
-      $scope.$on('showContextMenu', function () {
-        $scope.showContextMenu();
-      });
+      /* Finder scope disabled for StarHunt */
+      /*$scope.$on('showFinderScope', function () {});*/
+      /*$scope.$on('showContextMenu', function () {});*/
 
       var finderTimer,
           finderActive = false,
           finderMoved = true;
 
-      $scope.showFinderScope = function (event) {
-        if ($scope.lookAt === 'Sky' && !$scope.editingTour) {
-          var finder = $('.finder-scope');
-          finder.toggle(!finder.prop('hidden')).css({
-            top: event ? event.pageY - 88 : 180,
-            left: event ? event.pageX - 301 : 250
-          });
-
-          if (finder.prop('hidden')) {
-            finder.prop('hidden', false);
-            finder.fadeIn(function () {
-              if (!finder.prop('movebound')) {
-                var finderScopeMove = new wwt.Move({
-                  el: finder,
-                  target: finder.find('.moveable'),
-                  onmove: function () {
-                    finderMoved = true;
-
-                  }
-                });
-              }
-              finder.prop('movebound', true);
-            });
-          }
-
-          finderScope.init();
-
-          if (event) {
-            event.preventDefault();
-          }
-
-          finderTimer = setInterval(pollFinder, 400);
-          viewportChange(null, {finderMove: true});
-        }
-      };
+      $scope.showFinderScope = function (event) {};
 
       var pollFinder = function () {
         if (checkVisibleFinderScope()) {
