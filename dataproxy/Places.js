@@ -208,21 +208,6 @@ wwt.app.factory('Places', ['$http', '$q', '$timeout', 'Util',
 
 
       });
-      /*wwt.wc.add_collectionLoaded(function(data) {
-        console.log(data);
-        $.each(data, function(k, fld) {
-          if (ss.canCast(fld, wwtlib.Folder)) {
-            $.each(fld, function(ky, wf) {
-              if (ss.canCast(wf, wwtlib.WebFile)) {
-                console.log(wf);
-              }
-            });
-          }
-        });
-        deferred.resolve(collection);
-      });
-      wwt.wc.loadImageCollection('//worldwidetelescope.org/WWTWeb/TileImage.aspx?imageurl=' + encodeURIComponent(url));*/
-      //});
       return deferred.promise;
     }
 

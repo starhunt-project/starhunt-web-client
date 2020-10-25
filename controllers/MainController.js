@@ -140,18 +140,6 @@ wwt.controllers.controller(
       //#region initialization
       var initCanvas = function () {
         ctl = $rootScope.ctl = wwtlib.WWTControl.initControlParam("WWTCanvas", appState.get('WebGl'));
-
-        // The .8 release of scriptsharp changed the location of the canCast function
-        // This logic exists to ensure backwards compatibility when testing an older version
-        // of the framework.
-        if (window.Type && Type.canCast) {
-          if (window.ss) {
-            window.ss.canCast = Type.canCast;
-          } else {
-            window.ss = {canCast: Type.canCast};
-          }
-        }
-
         wwt.wc = ctl;
         wwt.resize();
 
@@ -192,6 +180,8 @@ wwt.controllers.controller(
         util.resetCamera(true);
 
         $(window).on('resize', function () {
+          wwtlib.WWTControl.singleton._crossHairs = null;
+
           wwt.resize();
           $scope.$applyAsync(function () {
             $scope.smallVP = wwt.smallVP;
@@ -205,6 +195,8 @@ wwt.controllers.controller(
         $rootScope.$on('hashChange', hashChange);
 
         $timeout(function () {
+          wwtlib.WWTControl.singleton._crossHairs = null;
+
           var hash = hashManager.getHashObject();
           $rootScope.$broadcast('hashChange', hash);
           $scope.smallVP = wwt.smallVP;
@@ -324,53 +316,6 @@ wwt.controllers.controller(
               label: 'StarHunt Targets',
               button: 'rbnStarHunt',
               menu: {}
-            }, {
-              label: 'Explore',
-              button: "rbnExplore",
-              mobileLabel: 'Explore Collections',
-              mobileAction: function () {
-                $('#exploreModalLink').click();
-              },
-              menu: {
-                Open: {
-                  'Tour...': [$scope.openItem, 'tour'],
-                  'Collection...': [$scope.openItem, 'collection'],
-                  'Image...': [$scope.openItem, 'image'],
-                  'FITS Image...': [$scope.openItem, 'FITS image']
-                },
-                sep1: null,
-                'Tour WWT Features': [$scope.tourFeatures],
-                'Show Finder (right click)': [$scope.showFinderScope],
-                'AAS WorldWide Telescope Home': [util.nav, 'http://worldwidetelescope.org/home']
-              }
-            }, {
-              label: 'Guided Tours',
-              button: 'rbnTours',
-              menu: {
-                'Create a New Tour...': [$scope.createNewTour],
-              }
-            }, {
-              label: 'Search',
-              button: 'rbnSearch',
-              menu: {
-                'Search Now': [function () {
-                  $timeout(function () {
-                    changePanel('Search');
-                  });
-                }],
-                'VO Cone Search': [function () {
-                  var modalScope = $rootScope.$new();
-                  modalScope.customClass = 'vo-cone-modal';
-                  var coneSearchModal = $modal({
-                    scope: modalScope,
-                    templateUrl: 'views/modals/centered-modal-template.html',
-                    contentTemplate: 'views/modals/vo-cone-search.html',
-                    show: true,
-                    placement: 'center',
-                    backdrop: false
-                  });
-                }]
-              }
             }, {
               label: 'View',
               button: 'rbnView',
@@ -515,53 +460,15 @@ wwt.controllers.controller(
         return finderActive;
       }
 
-      $scope.$on('showFinderScope', function () {
-        $scope.showFinderScope();
-      });
-
-      $scope.$on('showContextMenu', function () {
-        $scope.showContextMenu();
-      });
+      /* Finder scope disabled for StarHunt */
+      /*$scope.$on('showFinderScope', function () {});*/
+      /*$scope.$on('showContextMenu', function () {});*/
 
       var finderTimer,
           finderActive = false,
           finderMoved = true;
 
-      $scope.showFinderScope = function (event) {
-        if ($scope.lookAt === 'Sky' && !$scope.editingTour) {
-          var finder = $('.finder-scope');
-          finder.toggle(!finder.prop('hidden')).css({
-            top: event ? event.pageY - 88 : 180,
-            left: event ? event.pageX - 301 : 250
-          });
-
-          if (finder.prop('hidden')) {
-            finder.prop('hidden', false);
-            finder.fadeIn(function () {
-              if (!finder.prop('movebound')) {
-                var finderScopeMove = new wwt.Move({
-                  el: finder,
-                  target: finder.find('.moveable'),
-                  onmove: function () {
-                    finderMoved = true;
-
-                  }
-                });
-              }
-              finder.prop('movebound', true);
-            });
-          }
-
-          finderScope.init();
-
-          if (event) {
-            event.preventDefault();
-          }
-
-          finderTimer = setInterval(pollFinder, 400);
-          viewportChange(null, {finderMove: true});
-        }
-      };
+      $scope.showFinderScope = function (event) {};
 
       var pollFinder = function () {
         if (checkVisibleFinderScope()) {
@@ -681,7 +588,7 @@ wwt.controllers.controller(
         }
         $scope.setTrackingObj(item);
 
-        if (!item.isSurvey && ss.canCast(item, wwtlib.Place)) {
+        if (!item.isSurvey && wwtlib.ss.canCast(item, wwtlib.Place)) {
           $('.finder-scope').hide();
           //$('.cross-fader').parent().toggle(imageSet!=null);
           $rootScope.singleton.gotoTarget(item, false, !!$rootScope.instant, true);
