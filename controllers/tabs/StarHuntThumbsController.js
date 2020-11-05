@@ -194,7 +194,7 @@
                          {stretch: STRETCH_LOG, vmin: -88, vmax: 65000}, 'SOMA'),
         new StarHuntItem("G339.88", "starhunt_data/SOMA/G339.88_SOFIA37uma.fits",
                          253.01985, -46.14281,
-                         {stretch: STRETCH_LOG, vmin: -30, vmax: 19000}),
+                         {stretch: STRETCH_LOG, vmin: -30, vmax: 19000}, 'SOMA'),
         new StarHuntItem("G35.58", "starhunt_data/SOMA/G35.58_SOFIA37uma.fits",
                          284.094112, 2.341021,
                          {stretch: STRETCH_LOG, vmin: -29, vmax: 10700}, 'SOMA'),
